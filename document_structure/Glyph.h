@@ -9,6 +9,9 @@
 #include "../appearance/Rect.h"
 #include "../appearance/Point.h"
 
+#include <ostream>
+#include <string>
+
 using namespace appearance;
 
 namespace document_structure {
@@ -16,6 +19,7 @@ namespace document_structure {
         public:
             //appearance
             virtual void Draw(Window* )=0;
+            //returns the opposite corners of the smallest rectangle that contains glyph
             virtual void Bounds(Rect&)=0;
 
             //hit detection
@@ -26,6 +30,10 @@ namespace document_structure {
             virtual void Remove(Glyph*)=0;
             virtual Glyph* Child(int)=0;
             virtual Glyph* Parent()=0;
+
+            //print
+            friend std::ostream& operator<<(std::ostream& os, const Glyph& g);
+            virtual  std::string getType() const = 0;
 
             virtual ~Glyph()=0;
     };

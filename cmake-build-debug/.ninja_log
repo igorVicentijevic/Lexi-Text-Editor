@@ -1,0 +1,9 @@
+# ninja log v5
+1	243	1791848452137950369	CMakeFiles/Lexi.dir/appearance/Window.cpp.o	25dd752585faa79a
+1	244	1791848452137958410	CMakeFiles/Lexi.dir/appearance/Rect.cpp.o	625aea4e5ec3fa1e
+1	244	1791848452137166704	CMakeFiles/Lexi.dir/appearance/Point.cpp.o	850fee89e7e0236a
+1	514	1791848452404542074	CMakeFiles/Lexi.dir/document_structure/Rectangle.cpp.o	422f644db9b24c01
+1	517	1791848452408210786	CMakeFiles/Lexi.dir/document_structure/Glyph.cpp.o	e535e04ed8558241
+0	522	1791848452407829641	CMakeFiles/Lexi.dir/main.cpp.o	6f083ea29f5a652a
+2	191	1791848499109446465	CMakeFiles/Lexi.dir/appearance/Window.cpp.o	25dd752585faa79a
+191	289	1791848499207537965	Lexi	102fe3b854066197
