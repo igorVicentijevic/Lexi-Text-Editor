@@ -15,17 +15,17 @@ namespace document_structure {
     class Glyph {
         public:
             //appearance
-            virtual void Draw(Window* );
-            virtual void Bounds(Rect&);
+            virtual void Draw(Window* )=0;
+            virtual void Bounds(Rect&)=0;
 
             //hit detection
-            virtual bool Intersects(const Point&);
+            virtual bool Intersects(const Point&)=0;
 
             //structure
-            virtual void Insert(Glyph* ,int);
-            virtual void Remove(Glyph*);
-            virtual Glyph* Child(int);
-            virtual Glyph* Parent();
+            virtual void Insert(Glyph* ,int)=0;
+            virtual void Remove(Glyph*)=0;
+            virtual Glyph* Child(int)=0;
+            virtual Glyph* Parent()=0;
 
             virtual ~Glyph()=0;
     };
