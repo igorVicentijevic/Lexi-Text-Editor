@@ -19,7 +19,7 @@ namespace formatting {
     }
 
     void Composition::Insert(document_structure::Glyph * g) {
-        this->childrenRows[childrenRows.size()-1]->Insert(g);
+        this->compositor->onInsert(g);
 
     }
 

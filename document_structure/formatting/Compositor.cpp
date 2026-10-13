@@ -5,4 +5,7 @@
 #include "Compositor.h"
 
 namespace formatting {
+    void Compositor::onInsert(document_structure::Glyph *g) {
+
+    }
 } // formatting

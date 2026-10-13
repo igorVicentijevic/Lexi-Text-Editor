@@ -5,7 +5,7 @@
 #ifndef LEXI_COMPOSITOR_H
 #define LEXI_COMPOSITOR_H
 
-
+#include "../Glyph.h"
 
 namespace formatting {
 
@@ -14,9 +14,10 @@ namespace formatting {
     class Compositor {
         private:
            Composition* composition;
+
         public:
             Compositor(Composition* composition):composition(composition){}
-            virtual void compose()=0;
+            void onInsert(document_structure::Glyph* g);
     };
 
 } // formatting

@@ -36,6 +36,12 @@ namespace formatting {
                 this->compositor = compositor;
             }
 
+            void setChildren(std::vector<document_structure::Row*> childrenRows){
+                this->childrenRows = childrenRows;
+            }
+
+            friend class Compositor;
+
             std::string getType() const override;
     };
 
