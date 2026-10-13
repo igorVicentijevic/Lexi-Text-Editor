@@ -9,9 +9,9 @@ namespace document_structure {
 
     std::ostream &operator<<(std::ostream &os, const Glyph &g) {
         os << g.getType() << ":" << g.getId() << std::endl;
-        for (Glyph *child: g.children) {
-            os<<*child;
-        }
+//        for (Glyph *child: g.children) {
+//            os<<*child;
+//        }
 
         return os;
     }
@@ -23,4 +23,5 @@ namespace document_structure {
     int Glyph::getId() const {
         return id;
     }
+
 }

@@ -13,4 +13,6 @@ add_executable(Lexi main.cpp
         appearance/Point.cpp
         appearance/Point.h
         document_structure/Rectangle.cpp
-        document_structure/Rectangle.h)
+        document_structure/Rectangle.h
+        document_structure/Character.cpp
+        document_structure/Character.h)

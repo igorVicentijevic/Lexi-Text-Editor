@@ -3,6 +3,11 @@
 //
 
 #include "Window.h"
-void appearance::Window::DrawRect(int x0, int y0, int x1, int y1){
+#include <iostream>
 
+void appearance::Window::DrawCharacter(char c){
+    std::cout<<"DrawText: "<<c<<std::endl;
+}
+void appearance::Window::DrawRect(int x0, int y0, int x1, int y1){
+    std::cout<<"DrawRect: ("<<x0<<","<<y0<<")"<<"-("<<x1<<","<<y1<<")"<<std::endl;
 }

@@ -11,7 +11,6 @@
 
 #include <ostream>
 #include <string>
-#include <vector>
 
 using namespace appearance;
 
@@ -19,9 +18,11 @@ using namespace appearance;
 namespace document_structure {
     class Glyph {
         private:
-            std::vector<Glyph*> children;
             int id;
             static int ID;
+
+        protected:
+            Glyph* parent;
 
         public:
             Glyph();
@@ -36,15 +37,16 @@ namespace document_structure {
             //structure
             virtual void Insert(Glyph*)=0;
             virtual void Remove(Glyph*)=0;
-            virtual Glyph* Child(int)=0;
             virtual Glyph* Parent()=0;
 
             //print
-            friend std::ostream& operator<<(std::ostream& os, const Glyph& g);
+
             virtual std::string getType() const = 0;
             int getId() const;
 
-            virtual ~Glyph()=0;
+            friend std::ostream& operator<<(std::ostream& os, const Glyph& g);
+
+
     };
 
 }
