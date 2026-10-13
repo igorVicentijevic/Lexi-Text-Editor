@@ -7,6 +7,7 @@
 
 #include "../Glyph.h"
 #include "../Row.h"
+#include "../Column.h"
 
 namespace formatting {
 
@@ -22,8 +23,9 @@ namespace formatting {
             virtual void onInsert(document_structure::Glyph* g)=0;
         protected:
 
-            std::vector<document_structure::Row*> getRowsFromComposition();
-            void setRowsForComposition( std::vector<document_structure::Row*> );
+        document_structure::Column* getColFromComposition();
+
+        void setColForComposition(document_structure::Column* col);
     };
 
 } // formatting

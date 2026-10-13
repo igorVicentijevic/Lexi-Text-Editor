@@ -11,7 +11,7 @@ using namespace appearance;
 
 
 int main() {
-    Window w(7,20);
+    Window w(14,20);
 
     Character t('t');
     Character e('e');

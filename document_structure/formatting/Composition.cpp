@@ -9,9 +9,8 @@ using namespace document_structure;
 namespace formatting {
 
     void Composition::Draw(Window * w) {
-        for(Row* curr: this->childrenRows){
-            curr->Draw(w);
-        }
+
+        column->Draw(w);
     }
 
     void Composition::Bounds(Rect &) {

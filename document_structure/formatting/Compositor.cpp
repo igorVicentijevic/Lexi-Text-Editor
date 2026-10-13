@@ -10,11 +10,11 @@ namespace formatting {
 
     }
 
-    std::vector<document_structure::Row*> Compositor::getRowsFromComposition() {
-        return this->composition->childrenRows;
+    document_structure::Column* Compositor::getColFromComposition() {
+        return this->composition->column;
     }
 
-    void Compositor::setRowsForComposition(std::vector<document_structure::Row *> rows) {
-        this->composition->childrenRows=rows;
+    void Compositor::setColForComposition(Column* col) {
+        this->composition->column = col;
     }
 } // formatting

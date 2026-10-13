@@ -8,17 +8,21 @@
 #include "../Glyph.h"
 #include "../Row.h"
 #include "Compositor.h"
+#include "../Column.h"
 
 #include <vector>
+
+using namespace document_structure;
 
 namespace formatting {
 
     class Composition: public document_structure::Glyph {
         private:
-            std::vector<document_structure::Row*> childrenRows;
-            Compositor* compositor;
+            Column* column = nullptr;
+            Compositor* compositor = nullptr;
 
         public:
+
             void Draw(Window* ) override;
 
             //returns the opposite corners of the smallest rectangle that contains glyph
@@ -36,9 +40,10 @@ namespace formatting {
                 this->compositor = compositor;
             }
 
-            void setChildren(std::vector<document_structure::Row*> childrenRows){
-                this->childrenRows = childrenRows;
-            }
+//            void setChildren(std::vector<document_structure::Row*> childrenRows){
+//                this->childrenRows = childrenRows;
+//            }
+
 
             friend class Compositor;
 

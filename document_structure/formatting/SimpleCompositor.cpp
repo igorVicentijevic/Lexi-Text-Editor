@@ -13,7 +13,13 @@ namespace formatting {
     void SimpleCompositor::onInsert(document_structure::Glyph *g) {
         flattened.push_back(g);
 
-        std::vector<document_structure::Row*> currRows = this->getRowsFromComposition();
+        //std::vector<document_structure::Row*> currRows = this->getRowsFromComposition();
+
+        Column* currCol =  this->getColFromComposition();
+        std::vector<document_structure::Row*> currRows;
+        if(currCol!= nullptr)
+             currRows = this->getColFromComposition()->getChildren();
+
         Row* rowToAppendGlyph;
 
         if(currRows.empty()){
@@ -31,7 +37,15 @@ namespace formatting {
 
         rowToAppendGlyph->Insert(g);
 
-        this->setRowsForComposition(currRows);
+        if(currCol != nullptr)
+            delete currCol;
+
+        Column* newCol = new Column();
+        for(Row* curr: currRows){
+            newCol->insertRow(curr);
+        }
+        this->setColForComposition(newCol);
+
     }
 
     SimpleCompositor::SimpleCompositor(Composition *composition) : Compositor(composition) {
