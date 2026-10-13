@@ -3,6 +3,7 @@
 //
 
 #include "Composition.h"
+#include "Compositor.h"
 
 using namespace document_structure;
 

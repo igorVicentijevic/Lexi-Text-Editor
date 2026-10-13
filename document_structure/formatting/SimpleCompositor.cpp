@@ -6,46 +6,36 @@
 
 #include "../Row.h"
 #include <vector>
+#include "../insertion/Inserter.h"
 
 using namespace document_structure;
 
 namespace formatting {
     void SimpleCompositor::onInsert(document_structure::Glyph *g,int insertionPoint) {
-        flattened.push_back(g);
+        //flattened.push_back(g);
 
         //std::vector<document_structure::Row*> currRows = this->getRowsFromComposition();
 
-        Inserter::InsertionData data = this->inserter->insertGlyph(g,insertionPoint);
+        insertion::Inserter::InsertionData data = this->inserter->insertGlyph(g,insertionPoint);
+
+        handleGlyphShifting(data);
 
         Column* currCol =  this->getColFromComposition();
+
         std::vector<document_structure::Row*> currRows;
         if(currCol!= nullptr)
              currRows = this->getColFromComposition()->getChildren();
 
-        Row* rowToAppendGlyph;
-
-        if(currRows.empty()){
-            rowToAppendGlyph = new Row();
-            currRows.push_back(rowToAppendGlyph);
+        Row* lastRow = currCol->getChildren().back();
+        if(lastRow->getSize() > width){
+            splitRow(lastRow,currRows);
         }
-        else
-        {
-            rowToAppendGlyph = currRows[currRows.size()-1];
-        }
-
-        if(rowToAppendGlyph->getSize() >= width){
-            rowToAppendGlyph = splitRow(rowToAppendGlyph,currRows);
-        }
-
-        rowToAppendGlyph->Insert(g);
-
-        if(currCol != nullptr)
-            delete currCol;
 
         Column* newCol = new Column();
         for(Row* curr: currRows){
             newCol->insertRow(curr);
         }
+
         this->setColForComposition(newCol);
 
     }
@@ -77,6 +67,29 @@ namespace formatting {
         delete rowToSplit;
         return row2;
     }
+
+    void SimpleCompositor::handleGlyphShifting(insertion::Inserter::InsertionData iData) {
+        Column* col = this->getColFromComposition();
+        int rowIndx = std::find(col->getChildren().begin(), col->getChildren().end(),iData.row)-col->getChildren().begin();
+
+        while( col->getChildren()[rowIndx]->getChildren().size() > width && rowIndx < col->getChildren().size()-1){
+
+            Row* currRow = col->getChildren()[rowIndx];
+
+            Glyph* gToTransfer = currRow->getChildren().back();
+
+            currRow->getChildren().erase(
+                    std::find(currRow->getChildren().begin(),currRow->getChildren().end(),gToTransfer)
+                    );
+
+            Row* nextRow = col->getChildren()[rowIndx+1];
+            nextRow->getChildren().insert(nextRow->getChildren().begin()+0,gToTransfer);
+
+            rowIndx++;
+        }
+    }
+
+
 
 
 } // formatting

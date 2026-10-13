@@ -8,8 +8,10 @@
 #include "../Glyph.h"
 #include "../Row.h"
 #include "../Column.h"
-#include "../insertion/Inserter.h"
-using namespace insertion;
+
+namespace insertion  { class Inserter; }
+
+
 namespace formatting {
 
     class Composition;
@@ -17,14 +19,14 @@ namespace formatting {
     class Compositor {
         protected:
            Composition* composition;
-           Inserter* inserter;
+           insertion::Inserter* inserter;
 
 
         public:
             Compositor(Composition* composition):composition(composition){}
             virtual void onInsert(document_structure::Glyph* g,int)=0;
 
-            void setInserter(Inserter* inserter){
+            void setInserter(insertion::Inserter* inserter){
                 this->inserter = inserter;
             }
         protected:

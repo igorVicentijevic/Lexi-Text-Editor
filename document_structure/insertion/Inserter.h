@@ -6,7 +6,9 @@
 #define LEXI_INSERTER_H
 
 #include "../Glyph.h"
-#include "../formatting/Composition.h"
+#include "../Row.h"
+
+namespace formatting { class Composition; }
 
 using namespace document_structure;
 namespace insertion {

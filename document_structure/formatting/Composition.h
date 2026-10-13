@@ -7,7 +7,7 @@
 
 #include "../Glyph.h"
 #include "../Row.h"
-#include "Compositor.h"
+
 #include "../Column.h"
 
 #include <vector>
@@ -15,7 +15,7 @@
 using namespace document_structure;
 
 namespace formatting {
-
+    class Compositor;
     class Composition: public document_structure::Glyph {
         private:
             Column* column = nullptr;

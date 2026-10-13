@@ -8,6 +8,7 @@
 #include "Compositor.h"
 #include "../Glyph.h"
 #include "../Row.h"
+#include "../insertion/Inserter.h"
 
 #include <vector>
 
@@ -19,7 +20,7 @@ namespace formatting {
         int width;
     private:
         document_structure::Row* splitRow(document_structure::Row* rowToSplit, std::vector<document_structure::Row*>& currRows);
-
+        void handleGlyphShifting(insertion::Inserter::InsertionData iData);
     public:
         explicit SimpleCompositor(Composition *composition);
         void onInsert(document_structure::Glyph *g,int) override;
