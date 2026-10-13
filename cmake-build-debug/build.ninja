@@ -91,6 +91,12 @@ build CMakeFiles/Lexi.dir/document_structure/Character.cpp.o: CXX_COMPILER__Lexi
   OBJECT_DIR = CMakeFiles/Lexi.dir
   OBJECT_FILE_DIR = CMakeFiles/Lexi.dir/document_structure
 
+build CMakeFiles/Lexi.dir/document_structure/Row.cpp.o: CXX_COMPILER__Lexi_unscanned_Debug /Volumes/DodatniProstorZaMac/CppProjekti/Lexi/document_structure/Row.cpp || cmake_object_order_depends_target_Lexi
+  DEP_FILE = CMakeFiles/Lexi.dir/document_structure/Row.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk -fcolor-diagnostics
+  OBJECT_DIR = CMakeFiles/Lexi.dir
+  OBJECT_FILE_DIR = CMakeFiles/Lexi.dir/document_structure
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Lexi
@@ -99,7 +105,7 @@ build CMakeFiles/Lexi.dir/document_structure/Character.cpp.o: CXX_COMPILER__Lexi
 #############################################
 # Link the executable Lexi
 
-build Lexi: CXX_EXECUTABLE_LINKER__Lexi_Debug CMakeFiles/Lexi.dir/main.cpp.o CMakeFiles/Lexi.dir/document_structure/Glyph.cpp.o CMakeFiles/Lexi.dir/appearance/Window.cpp.o CMakeFiles/Lexi.dir/appearance/Rect.cpp.o CMakeFiles/Lexi.dir/appearance/Point.cpp.o CMakeFiles/Lexi.dir/document_structure/Rectangle.cpp.o CMakeFiles/Lexi.dir/document_structure/Character.cpp.o
+build Lexi: CXX_EXECUTABLE_LINKER__Lexi_Debug CMakeFiles/Lexi.dir/main.cpp.o CMakeFiles/Lexi.dir/document_structure/Glyph.cpp.o CMakeFiles/Lexi.dir/appearance/Window.cpp.o CMakeFiles/Lexi.dir/appearance/Rect.cpp.o CMakeFiles/Lexi.dir/appearance/Point.cpp.o CMakeFiles/Lexi.dir/document_structure/Rectangle.cpp.o CMakeFiles/Lexi.dir/document_structure/Character.cpp.o CMakeFiles/Lexi.dir/document_structure/Row.cpp.o
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk
   OBJECT_DIR = CMakeFiles/Lexi.dir
   POST_BUILD = :

@@ -18,10 +18,19 @@ namespace document_structure {
 
     Glyph::Glyph() {
         id = ID++;
+        this->parent = nullptr;
     }
 
     int Glyph::getId() const {
         return id;
+    }
+
+    Glyph* Glyph::getParent(){
+        return this->parent;
+    }
+
+    void Glyph::setParent(Glyph* g){
+        this->parent = g;
     }
 
 }

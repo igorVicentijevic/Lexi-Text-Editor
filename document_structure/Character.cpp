@@ -6,9 +6,8 @@
 
 namespace document_structure {
 
-    Character::Character(char c):c(c){
+    Character::Character(char c):c(c){}
 
-    }
     void Character::Draw(Window* w){
         w->DrawCharacter(this->c);
     }
@@ -28,11 +27,6 @@ namespace document_structure {
 
     void Character::Remove(Glyph*){
         //ERROR karakter je list
-    }
-
-    Glyph* Character::Parent(){
-        //TODO
-        return nullptr;
     }
 
     //print

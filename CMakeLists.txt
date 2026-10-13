@@ -15,4 +15,7 @@ add_executable(Lexi main.cpp
         document_structure/Rectangle.cpp
         document_structure/Rectangle.h
         document_structure/Character.cpp
-        document_structure/Character.h)
+        document_structure/Character.h
+        document_structure/Row.cpp
+        document_structure/Row.h
+)

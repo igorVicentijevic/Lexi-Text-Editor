@@ -24,7 +24,7 @@ namespace document_structure {
             //structure
             void Insert(Glyph*) override;
             void Remove(Glyph*) override;
-            Glyph* Parent() override;
+
 
             //print
 

@@ -20,9 +20,8 @@ namespace document_structure {
         private:
             int id;
             static int ID;
-
-        protected:
             Glyph* parent;
+
 
         public:
             Glyph();
@@ -37,7 +36,8 @@ namespace document_structure {
             //structure
             virtual void Insert(Glyph*)=0;
             virtual void Remove(Glyph*)=0;
-            virtual Glyph* Parent()=0;
+            Glyph* getParent();
+            void setParent(Glyph* g);
 
             //print
 
