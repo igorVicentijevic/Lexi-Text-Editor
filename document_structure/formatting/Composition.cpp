@@ -18,7 +18,8 @@ namespace formatting {
         return false;
     }
 
-    void Composition::Insert(document_structure::Glyph *) {
+    void Composition::Insert(document_structure::Glyph * g) {
+        this->childrenRows[childrenRows.size()-1]->Insert(g);
 
     }
 
