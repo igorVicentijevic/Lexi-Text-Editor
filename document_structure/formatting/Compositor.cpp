@@ -6,7 +6,7 @@
 #include "Composition.h"
 
 namespace formatting {
-    void Compositor::onInsert(document_structure::Glyph *g) {
+    void Compositor::onInsert(document_structure::Glyph *g,int) {
 
     }
 

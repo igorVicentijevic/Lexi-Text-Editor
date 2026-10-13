@@ -19,12 +19,15 @@ namespace formatting {
         int width;
     private:
         document_structure::Row* splitRow(document_structure::Row* rowToSplit, std::vector<document_structure::Row*>& currRows);
+
     public:
         explicit SimpleCompositor(Composition *composition);
-        void onInsert(document_structure::Glyph *g) override;
+        void onInsert(document_structure::Glyph *g,int) override;
         void setWidth(int width){
             this->width = width;
         }
+
+
     };
 
 } // formatting

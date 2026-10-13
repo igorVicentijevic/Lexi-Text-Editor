@@ -8,19 +8,25 @@
 #include "../Glyph.h"
 #include "../Row.h"
 #include "../Column.h"
-
+#include "../insertion/Inserter.h"
+using namespace insertion;
 namespace formatting {
 
     class Composition;
 
     class Compositor {
-        private:
+        protected:
            Composition* composition;
+           Inserter* inserter;
 
 
         public:
             Compositor(Composition* composition):composition(composition){}
-            virtual void onInsert(document_structure::Glyph* g)=0;
+            virtual void onInsert(document_structure::Glyph* g,int)=0;
+
+            void setInserter(Inserter* inserter){
+                this->inserter = inserter;
+            }
         protected:
 
         document_structure::Column* getColFromComposition();

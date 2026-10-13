@@ -13,9 +13,6 @@ using namespace appearance;
 int main() {
     Window w(14,20);
 
-    Character t('t');
-    Character e('e');
-    Character s('s');
 
 //    Row r;
 //

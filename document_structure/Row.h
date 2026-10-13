@@ -27,6 +27,8 @@ namespace document_structure {
             void Insert(Glyph*) override;
             void Remove(Glyph*) override;
 
+            void insertGlyph(Glyph*, int pos);
+
             //print
             std::string getType() const override;
 

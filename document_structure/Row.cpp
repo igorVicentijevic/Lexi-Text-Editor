@@ -42,4 +42,9 @@ namespace document_structure {
     std::string Row::getType() const {
         return "Row";
     }
+
+    void Row::insertGlyph(Glyph * gToInsert, int pos) {
+        if(pos < 0 || pos >= children.size()) return; //error
+        this->children.insert(children.begin()+pos,gToInsert);
+    }
 } // document_structure

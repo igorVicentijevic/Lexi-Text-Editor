@@ -35,6 +35,8 @@ namespace formatting {
             void Insert(Glyph*) override;
             void Remove(Glyph*) override;
 
+            void insertGlyph(Glyph*,int);
+
             //compositor
             void setCompositor(Compositor* compositor){
                 this->compositor = compositor;

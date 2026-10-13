@@ -10,10 +10,12 @@
 using namespace document_structure;
 
 namespace formatting {
-    void SimpleCompositor::onInsert(document_structure::Glyph *g) {
+    void SimpleCompositor::onInsert(document_structure::Glyph *g,int insertionPoint) {
         flattened.push_back(g);
 
         //std::vector<document_structure::Row*> currRows = this->getRowsFromComposition();
+
+        Inserter::InsertionData data = this->inserter->insertGlyph(g,insertionPoint);
 
         Column* currCol =  this->getColFromComposition();
         std::vector<document_structure::Row*> currRows;

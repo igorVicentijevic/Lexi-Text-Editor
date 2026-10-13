@@ -22,7 +22,7 @@ namespace formatting {
     }
 
     void Composition::Insert(document_structure::Glyph * g) {
-        this->compositor->onInsert(g);
+        //this->compositor->onInsert(g);
 
     }
 
@@ -32,5 +32,9 @@ namespace formatting {
 
     std::string Composition::getType() const {
         return "Composition";
+    }
+
+    void Composition::insertGlyph(Glyph * g, int insertionPoint) {
+        this->compositor->onInsert(g,insertionPoint);
     }
 } // formatting
