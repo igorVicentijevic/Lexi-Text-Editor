@@ -7,6 +7,7 @@
 
 #include "../Glyph.h"
 #include "../Row.h"
+#include "../Column.h"
 
 namespace formatting { class Composition; }
 
@@ -22,7 +23,10 @@ namespace insertion {
 
     protected:
         formatting::Composition* composition;
+
+        Column* getColumn();
     public:
+
         Inserter(formatting::Composition* composition): composition(composition){}
         virtual InsertionData insertGlyph(Glyph*, int) = 0;
 

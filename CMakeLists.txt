@@ -28,4 +28,6 @@ add_executable(Lexi main.cpp
         document_structure/Column.h
         document_structure/insertion/Inserter.cpp
         document_structure/insertion/Inserter.h
+        document_structure/insertion/SimpleInserter.cpp
+        document_structure/insertion/SimpleInserter.h
 )

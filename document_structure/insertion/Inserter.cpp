@@ -3,6 +3,10 @@
 //
 
 #include "Inserter.h"
+#include "../formatting/Composition.h"
 
 namespace insertion {
+    Column *Inserter::getColumn() {
+        return this->composition->column;
+    }
 } // insertion

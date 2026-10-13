@@ -9,6 +9,8 @@
 #include "../Row.h"
 
 #include "../Column.h"
+#include "../insertion/Inserter.h"
+
 
 #include <vector>
 
@@ -48,6 +50,7 @@ namespace formatting {
 
 
             friend class Compositor;
+            friend class insertion::Inserter;
 
             std::string getType() const override;
     };
