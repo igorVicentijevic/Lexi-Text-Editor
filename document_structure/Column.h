@@ -29,7 +29,7 @@ namespace document_structure {
 
         std::string getType() const override;
 
-        std::vector<Row*> getChildren(){
+        std::vector<Row*>& getChildren(){
             return children;
         }
     };

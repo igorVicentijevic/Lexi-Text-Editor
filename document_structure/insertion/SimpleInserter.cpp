@@ -9,30 +9,53 @@ namespace insertion {
         int cnt = i;
         Column* col = this->getColumn();
 
-        InsertionData iData;
+        if (col == nullptr) {
+            col = new Column();
+        }
 
+        InsertionData iData;
         iData.row = nullptr;
         iData.pos = -1;
 
-        for(Row* row: col->getChildren()){
-            if(row->getSize()<=cnt){
+        bool isInserted = false;
+
+        for (Row* row : col->getChildren()) {
+            if (row->getSize() <= cnt) {
                 cnt -= row->getSize();
             }
-            else
-            {
+            else {
                 iData.row = row;
                 iData.pos = cnt;
 
-                insertIntoVector(glyph,cnt,row->getChildren());
+                insertIntoVector(glyph, cnt, row->getChildren());
+
+
+                isInserted = true;
                 break;
             }
         }
+
+        if (!isInserted) {
+            Row* lastRow = nullptr;
+            if (col->getChildren().size() > 0) {
+                lastRow = col->getChildren().back();
+            }
+            else {
+                lastRow = new Row();
+                col->insertRow(lastRow);
+            }
+            lastRow->insertGlyph(glyph, lastRow->getChildren().size());
+            iData.row = lastRow;
+            iData.pos = lastRow->getChildren().size() - 1;
+        }
+
+        this->setColumn(col);
         return iData;
     }
 
     SimpleInserter::SimpleInserter(formatting::Composition *composition) : Inserter(composition) {}
 
-    void SimpleInserter::insertIntoVector(Glyph * g, int i, std::vector<Glyph *> arr) {
-        arr.insert(arr.begin()+i,g);
+    void SimpleInserter::insertIntoVector(Glyph* g, int i, std::vector<Glyph*>& arr) {
+        arr.insert(arr.begin() + i, g);
     }
 } // insertion

@@ -36,7 +36,7 @@ namespace document_structure {
                 return this->children.size();
             }
 
-            std::vector<Glyph*> getChildren(){
+            std::vector<Glyph*>& getChildren(){
                 return children;
             }
     };

@@ -10,7 +10,7 @@ namespace insertion {
 
     class SimpleInserter: public Inserter {
     private:
-        void insertIntoVector(Glyph*, int , std::vector<Glyph*>);
+        void insertIntoVector(Glyph*, int , std::vector<Glyph*>&);
     public:
         explicit SimpleInserter(formatting::Composition *composition);
 

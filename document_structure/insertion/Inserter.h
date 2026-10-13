@@ -25,6 +25,7 @@ namespace insertion {
         formatting::Composition* composition;
 
         Column* getColumn();
+        void setColumn(Column*);
     public:
 
         Inserter(formatting::Composition* composition): composition(composition){}

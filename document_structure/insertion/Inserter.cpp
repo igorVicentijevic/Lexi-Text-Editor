@@ -9,4 +9,8 @@ namespace insertion {
     Column *Inserter::getColumn() {
         return this->composition->column;
     }
+
+    void Inserter::setColumn(Column * col) {
+        this->composition->column = col;
+    }
 } // insertion

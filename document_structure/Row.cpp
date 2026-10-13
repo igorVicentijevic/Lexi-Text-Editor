@@ -44,7 +44,7 @@ namespace document_structure {
     }
 
     void Row::insertGlyph(Glyph * gToInsert, int pos) {
-        if(pos < 0 || pos >= children.size()) return; //error
+        if(pos < 0) return; //error
         this->children.insert(children.begin()+pos,gToInsert);
     }
 } // document_structure

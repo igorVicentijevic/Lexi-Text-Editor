@@ -70,20 +70,25 @@ namespace formatting {
 
     void SimpleCompositor::handleGlyphShifting(insertion::Inserter::InsertionData iData) {
         Column* col = this->getColFromComposition();
-        int rowIndx = std::find(col->getChildren().begin(), col->getChildren().end(),iData.row)-col->getChildren().begin();
 
-        while( col->getChildren()[rowIndx]->getChildren().size() > width && rowIndx < col->getChildren().size()-1){
+        auto& rows = col->getChildren();
+        int rowIndx = std::find(rows.begin(), rows.end(),iData.row)-rows.begin();
 
-            Row* currRow = col->getChildren()[rowIndx];
+        while(rowIndx < rows.size()-1){
+
+            Row* currRow = rows[rowIndx];
 
             Glyph* gToTransfer = currRow->getChildren().back();
 
-            currRow->getChildren().erase(
-                    std::find(currRow->getChildren().begin(),currRow->getChildren().end(),gToTransfer)
+            auto& rowChildren = currRow->getChildren();
+            rowChildren.erase(
+                    std::find(rowChildren.begin(),rowChildren.end(),gToTransfer)
                     );
 
             Row* nextRow = col->getChildren()[rowIndx+1];
-            nextRow->getChildren().insert(nextRow->getChildren().begin()+0,gToTransfer);
+
+            auto& nextRowChildren = nextRow->getChildren();
+            nextRowChildren.insert(nextRowChildren.begin()+0,gToTransfer);
 
             rowIndx++;
         }
