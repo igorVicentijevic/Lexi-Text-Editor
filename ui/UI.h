@@ -6,12 +6,14 @@
 #define LEXI_UI_H
 
 #include "../document_structure/formatting/Composition.h"
+#include "../document_structure/formatting/SimpleCompositor.h"
 #include "../appearance/Window.h"
 
 namespace ui{
     class UI {
         private:
             formatting::Composition* composition;
+            formatting::SimpleCompositor* compositor;
             appearance::Window* window;
 
             int insertionPoint  = 0;
@@ -24,6 +26,8 @@ namespace ui{
             void callOption(int);
             void handlePutInsertionPoint();
             void handleInsertCharacterOnInsertionPoint();
+            void handleAddStringToInsertionPoint();
+            void handleWidthChange();
         public:
             UI();
             void start();

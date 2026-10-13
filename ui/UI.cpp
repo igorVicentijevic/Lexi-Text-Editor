@@ -49,7 +49,13 @@ void ui::UI::callOption(int option) {
             handleInsertCharacterOnInsertionPoint();
             break;
         case 3:
+            handleAddStringToInsertionPoint();
+            break;
+        case 4:
             quit = true;
+            break;
+        case 5:
+            handleWidthChange();
             break;
         default:
             cout << "Nevalidna opcija! Unesite ponovo!";
@@ -66,7 +72,9 @@ void ui::UI::printOptions() {
     cout<<"######################"<<endl;
     cout<<"1. Put insertion point"<<endl;
     cout<<"2. Write char on insertion point"<<endl;
-    cout<<"3. Quit"<<endl;
+    cout<<"3. Add string to insertion point"<<endl;
+    cout<<"4. Quit"<<endl;
+    cout<<"5. Change window width"<<endl;
     cout<<"######################"<<endl;
 }
 
@@ -86,9 +94,29 @@ ui::UI::UI() {
     formatting::SimpleCompositor* simpleCompositor = new formatting::SimpleCompositor(composition);
     simpleCompositor->setWidth(window->getWidth());
 
+    this->compositor = simpleCompositor;
+
     compositor = simpleCompositor;
     compositor->setInserter(inserter);
 
     composition->setCompositor(compositor);
 
+}
+
+void ui::UI::handleAddStringToInsertionPoint() {
+    cout << "Input string: "<<endl;
+    string s;
+    cin >> s;
+    for(char c: s){
+        composition->insertGlyph(new Character(c),insertionPoint);
+        insertionPoint++;
+    }
+}
+
+void ui::UI::handleWidthChange() {
+    cout << "Input new width: "<<endl;
+    int newWidth;
+    cin >> newWidth;
+    this->window = new Window(newWidth,100);
+    this->compositor->setWidth(newWidth);
 }
