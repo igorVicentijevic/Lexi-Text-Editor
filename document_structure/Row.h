@@ -29,6 +29,14 @@ namespace document_structure {
 
             //print
             std::string getType() const override;
+
+            int getSize(){
+                return this->children.size();
+            }
+
+            std::vector<Glyph*> getChildren(){
+                return children;
+            }
     };
 
 } // document_structure

@@ -11,7 +11,7 @@ using namespace appearance;
 
 
 int main() {
-    Window w(20,20);
+    Window w(7,20);
 
     Character t('t');
     Character e('e');
@@ -26,13 +26,18 @@ int main() {
 //
 //    r.Draw(&w);
     formatting::Composition composition;
-    formatting::Compositor* compositor = new formatting::SimpleCompositor(&composition);
-    composition.setCompositor(compositor);
+    formatting::Compositor* compositor;
 
-    composition.Insert(&t);
-    composition.Insert(&e);
-    composition.Insert(&s);
-    composition.Insert(&t);
+    formatting::SimpleCompositor* simpleCompositor = new formatting::SimpleCompositor(&composition);
+    simpleCompositor->setWidth(w.getWidth());
+
+    compositor = simpleCompositor;
+
+
+    composition.setCompositor(compositor);
+    for(char c: "Testiranje da li sve lepo radi nadam se da ima 20 karaktera bar!"){
+        composition.Insert(new Character(c));
+    }
 
     composition.Draw(&w);
     return 0;
