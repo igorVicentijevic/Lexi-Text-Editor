@@ -7,9 +7,13 @@
 #include "document_structure/formatting/SimpleCompositor.h"
 #include "document_structure/insertion/SimpleInserter.h"
 
+#include "ui/UI.h"
+
 using namespace document_structure;
 using namespace appearance;
 using namespace formatting;
+
+using namespace ui;
 
 
 void test(){
@@ -42,6 +46,11 @@ void test(){
 
 }
 
+void testWithUI(){
+    UI ui;
+    ui.start();
+}
+
 int main() {
 //    Window w(14,20);
 //
@@ -70,6 +79,6 @@ int main() {
 //
 //    composition.Draw(&w);
 
-    test();
+    testWithUI();
     return 0;
 }

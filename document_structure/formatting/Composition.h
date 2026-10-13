@@ -44,10 +44,6 @@ namespace formatting {
                 this->compositor = compositor;
             }
 
-//            void setChildren(std::vector<document_structure::Row*> childrenRows){
-//                this->childrenRows = childrenRows;
-//            }
-
 
             friend class Compositor;
             friend class insertion::Inserter;

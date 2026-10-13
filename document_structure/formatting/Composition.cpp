@@ -10,8 +10,8 @@ using namespace document_structure;
 namespace formatting {
 
     void Composition::Draw(Window * w) {
-
-        column->Draw(w);
+        if(column)
+            column->Draw(w);
     }
 
     void Composition::Bounds(Rect &) {
