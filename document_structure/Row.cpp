@@ -12,6 +12,7 @@ namespace document_structure {
         for(Glyph* child: children){
             child->Draw(w);
         }
+        w->DrawCharacter('\n');
     }
     //returns the opposite corners of the smallest rectangle that contains glyph
     void Row::Bounds(Rect& r){

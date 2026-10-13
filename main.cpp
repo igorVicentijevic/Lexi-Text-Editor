@@ -9,7 +9,7 @@ using namespace appearance;
 
 
 int main() {
-    Window w;
+    Window w(20,20);
 
     Character t('t');
     Character e('e');

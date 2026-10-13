@@ -18,4 +18,6 @@ add_executable(Lexi main.cpp
         document_structure/Character.h
         document_structure/Row.cpp
         document_structure/Row.h
+        document_structure/formatting/Composition.cpp
+        document_structure/formatting/Composition.h
 )

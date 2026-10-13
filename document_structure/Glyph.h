@@ -36,12 +36,15 @@ namespace document_structure {
             //structure
             virtual void Insert(Glyph*)=0;
             virtual void Remove(Glyph*)=0;
+
+            virtual std::string getType() const = 0;
+
             Glyph* getParent();
             void setParent(Glyph* g);
 
             //print
 
-            virtual std::string getType() const = 0;
+
             int getId() const;
 
             friend std::ostream& operator<<(std::ostream& os, const Glyph& g);
