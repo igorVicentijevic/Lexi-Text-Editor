@@ -6,6 +6,7 @@
 #define LEXI_COMPOSITOR_H
 
 #include "../Glyph.h"
+#include "../Row.h"
 
 namespace formatting {
 
@@ -15,9 +16,14 @@ namespace formatting {
         private:
            Composition* composition;
 
+
         public:
             Compositor(Composition* composition):composition(composition){}
-            void onInsert(document_structure::Glyph* g);
+            virtual void onInsert(document_structure::Glyph* g)=0;
+        protected:
+
+            std::vector<document_structure::Row*> getRowsFromComposition();
+            void setRowsForComposition( std::vector<document_structure::Row*> );
     };
 
 } // formatting
