@@ -92,13 +92,13 @@ ui::UI::UI() {
     insertion::Inserter* inserter = new insertion::SimpleInserter(composition);
 
 
-    formatting::FullCompositor* fullCompositor = new formatting::FullCompositor(composition);//new formatting::SimpleCompositor(composition);
-    fullCompositor->setWidth(window->getWidth());
-
-    this->compositor = fullCompositor;
-
-    compositor = fullCompositor;
-    compositor->setInserter(inserter);
+//    formatting::FullCompositor* fullCompositor = new formatting::FullCompositor(composition);//new formatting::SimpleCompositor(composition);
+//    fullCompositor->setWidth(window->getWidth());
+//
+//    this->compositor = fullCompositor;
+//
+//    compositor = fullCompositor;
+//    compositor->setInserter(inserter);
 
     composition->setCompositor(compositor);
 
@@ -119,5 +119,5 @@ void ui::UI::handleWidthChange() {
     int newWidth;
     cin >> newWidth;
     this->window = new Window(newWidth,100);
-    this->compositor->setWidth(newWidth);
+
 }

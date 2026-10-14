@@ -24,8 +24,8 @@ namespace insertion {
     protected:
         formatting::Composition* composition;
 
-        Column* getColumn();
-        void setColumn(Column*);
+        Glyph* getRoot();
+        void setRoot(Glyph*);
     public:
 
         Inserter(formatting::Composition* composition): composition(composition){}

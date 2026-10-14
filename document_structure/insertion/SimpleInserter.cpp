@@ -7,7 +7,7 @@
 namespace insertion {
     Inserter::InsertionData SimpleInserter::insertGlyph(Glyph *glyph, int i) {
         int cnt = i;
-        Column* col = this->getColumn();
+        Column* col = dynamic_cast<Column*> (this->getRoot());
 
         if (col == nullptr) {
             col = new Column();
@@ -49,7 +49,7 @@ namespace insertion {
             iData.pos = lastRow->getChildren().size() - 1;
         }
 
-        this->setColumn(col);
+        this->setRoot(col);
         return iData;
     }
 

@@ -13,40 +13,19 @@ namespace formatting {
     }
 
 
-    void FullCompositor::compose(std::vector<document_structure::Glyph *> vector) {
+    void FullCompositor::compose(std::vector<document_structure::Glyph *>  flattened) {
         Column* newColumn = this->createNewStructure(flattened);
         this->setRootForComposition(newColumn);
     }
 
     bool FullCompositor::dependsOn(const EnvironmentSource &source) {
         //TODO change to not compare by referance because maybe this two can be coppies of the same source
-        return &source == &src;
+        return &source == &this->widthSource;
     }
 
 
 
-    void FullCompositor::onInsert(document_structure::Glyph *g, int insertionPoint) {
-//        this->inserter->insertGlyph(g,insertionPoint);
-//        const auto flattend = this->flattenAndDeleteStructure(this->getColFromComposition());
-//        Column* newColumn = this->createNewStructure(flattend);
-//        this->setColForComposition(newColumn);
 
-    }
-
-//    std::vector<Glyph *> FullCompositor::flattenAndDeleteStructure(Column *col) {
-//        std::vector<Glyph*> flattened;
-//
-//        for(Row* row: col->getChildren()){
-//            for(Glyph* g: row->getChildren()){
-//                flattened.push_back(g);
-//            }
-//            delete row;
-//        }
-//        delete col;
-//
-//        return flattened;
-//
-//    }
 
     Column *FullCompositor::createNewStructure(const std::vector<Glyph *> & flattened) {
         Column* col = new Column();

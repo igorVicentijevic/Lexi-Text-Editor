@@ -10,6 +10,7 @@
 
 #include "../Column.h"
 #include "../insertion/Inserter.h"
+#include "../insertion/SimpleInserter.h"
 
 
 #include <vector>
@@ -22,6 +23,10 @@ namespace formatting {
         private:
             Glyph* root = nullptr;
             Compositor* compositor = nullptr;
+            insertion::Inserter* inserter = new insertion::SimpleInserter(this);
+
+            void recompose();
+            std::vector<Glyph*> flattendAndDeleteStructure();
 
         public:
 

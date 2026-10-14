@@ -6,11 +6,11 @@
 #include "../formatting/Composition.h"
 
 namespace insertion {
-    Column *Inserter::getColumn() {
-        return this->composition->column;
+    Glyph* Inserter::getRoot() {
+        return this->composition->root;
     }
 
-    void Inserter::setColumn(Column * col) {
-        this->composition->column = col;
+    void Inserter::setRoot(Glyph* root) {
+        this->composition->root = root;
     }
 } // insertion
