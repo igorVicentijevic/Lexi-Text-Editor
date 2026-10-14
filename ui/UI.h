@@ -8,12 +8,13 @@
 #include "../document_structure/formatting/Composition.h"
 #include "../document_structure/formatting/SimpleCompositor.h"
 #include "../appearance/Window.h"
+#include "../document_structure/formatting/FullCompositor.h"
 
 namespace ui{
     class UI {
         private:
             formatting::Composition* composition;
-            formatting::SimpleCompositor* compositor;
+            formatting::FullCompositor* compositor;
             appearance::Window* window;
 
             int insertionPoint  = 0;

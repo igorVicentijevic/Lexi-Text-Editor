@@ -6,6 +6,7 @@
 #include "../document_structure/Character.h"
 #include "../document_structure/formatting/SimpleCompositor.h"
 #include "../document_structure/insertion/SimpleInserter.h"
+#include "../document_structure/formatting/FullCompositor.h"
 
 #include <iostream>
 
@@ -91,12 +92,12 @@ ui::UI::UI() {
     insertion::Inserter* inserter = new insertion::SimpleInserter(composition);
 
 
-    formatting::SimpleCompositor* simpleCompositor = new formatting::SimpleCompositor(composition);
-    simpleCompositor->setWidth(window->getWidth());
+    formatting::FullCompositor* fullCompositor = new formatting::FullCompositor(composition);//new formatting::SimpleCompositor(composition);
+    fullCompositor->setWidth(window->getWidth());
 
-    this->compositor = simpleCompositor;
+    this->compositor = fullCompositor;
 
-    compositor = simpleCompositor;
+    compositor = fullCompositor;
     compositor->setInserter(inserter);
 
     composition->setCompositor(compositor);
