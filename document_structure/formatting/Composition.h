@@ -20,7 +20,7 @@ namespace formatting {
     class Compositor;
     class Composition: public document_structure::Glyph {
         private:
-            Column* column = nullptr;
+            Glyph* root = nullptr;
             Compositor* compositor = nullptr;
 
         public:

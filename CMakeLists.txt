@@ -40,4 +40,8 @@ add_executable(Lexi main.cpp
         ui/UI.cpp
         document_structure/formatting/FullCompositor.cpp
         document_structure/formatting/FullCompositor.h
+        document_structure/formatting/environment_source/EnvironmentSource.cpp
+        document_structure/formatting/environment_source/EnvironmentSource.h
+        document_structure/formatting/environment_source/LineWidthSource.cpp
+        document_structure/formatting/environment_source/LineWidthSource.h
 )
