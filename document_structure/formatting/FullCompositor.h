@@ -10,6 +10,7 @@
 #include "../Row.h"
 #include "../insertion/Inserter.h"
 
+#include "environment_source/LineWidthSource.h"
 #include <vector>
 
 
@@ -17,18 +18,15 @@ namespace formatting {
 
     class FullCompositor: public Compositor {
             private:
+                LineWidthSource& widthSource;
 
-                int width;
             private:
-                Column* createNewStructure(const std::vector<Glyph*>&);
-                std::vector<Glyph*> flattenAndDeleteStructure(Column* col);
+                Column *createNewStructure(const std::vector<Glyph *> & flattened);
             public:
-                explicit FullCompositor(Composition *composition);
-                void onInsert(document_structure::Glyph *g,int) override;
-                void setWidth(int width){
-                    this->width = width;
-                }
+                explicit FullCompositor(Composition *composition,LineWidthSource& widthSource );
+                void compose(std::vector<document_structure::Glyph *> vector) override;
 
+                bool dependsOn(const EnvironmentSource &source) override;
 
     };
 

@@ -6,15 +6,13 @@
 #include "Composition.h"
 
 namespace formatting {
-    void Compositor::onInsert(document_structure::Glyph *g,int) {
 
+
+    document_structure::Glyph* Compositor::getRootFromComposition() {
+        return this->composition->root;
     }
 
-    document_structure::Column* Compositor::getColFromComposition() {
-        return this->composition->column;
-    }
-
-    void Compositor::setColForComposition(Column* col) {
-        this->composition->column = col;
+    void Compositor::setRootForComposition(Glyph* root) {
+        this->composition->root = root;
     }
 } // formatting

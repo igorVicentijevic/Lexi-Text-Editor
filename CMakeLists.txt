@@ -22,8 +22,6 @@ add_executable(Lexi main.cpp
         document_structure/formatting/Composition.h
         document_structure/formatting/Compositor.cpp
         document_structure/formatting/Compositor.h
-        document_structure/formatting/SimpleCompositor.cpp
-        document_structure/formatting/SimpleCompositor.h
         document_structure/Column.cpp
         document_structure/Column.h
         document_structure/insertion/Inserter.cpp

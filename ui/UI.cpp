@@ -4,7 +4,7 @@
 
 #include "UI.h"
 #include "../document_structure/Character.h"
-#include "../document_structure/formatting/SimpleCompositor.h"
+#include "../document_structure/formatting/FullCompositor.h"
 #include "../document_structure/insertion/SimpleInserter.h"
 #include "../document_structure/formatting/FullCompositor.h"
 

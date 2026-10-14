@@ -6,7 +6,7 @@
 #define LEXI_UI_H
 
 #include "../document_structure/formatting/Composition.h"
-#include "../document_structure/formatting/SimpleCompositor.h"
+
 #include "../appearance/Window.h"
 #include "../document_structure/formatting/FullCompositor.h"
 

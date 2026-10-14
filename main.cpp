@@ -4,7 +4,7 @@
 #include "appearance/Window.h"
 #include "document_structure/Row.h"
 #include "document_structure/formatting/Composition.h"
-#include "document_structure/formatting/SimpleCompositor.h"
+
 #include "document_structure/insertion/SimpleInserter.h"
 
 #include "ui/UI.h"
@@ -16,36 +16,36 @@ using namespace formatting;
 using namespace ui;
 
 
-void test(){
-    Window w(9,20);
-    Composition composition;
-    formatting::Compositor* compositor;
-
-    insertion::Inserter* inserter = new insertion::SimpleInserter(&composition);
-
-
-    formatting::SimpleCompositor* simpleCompositor = new formatting::SimpleCompositor(&composition);
-    simpleCompositor->setWidth(w.getWidth());
-
-    compositor = simpleCompositor;
-    compositor->setInserter(inserter);
-
-    composition.setCompositor(compositor);
-
-    int cnt = 0;
-    for(char c: "Testiranje da li sve lepo radi nadam se da ima 20 karaktera bar!"){
-        composition.insertGlyph(new Character(c),cnt++);
-    }
-
-    composition.insertGlyph(new Character('T'),6);
-    composition.insertGlyph(new Character('A'),6);
-    composition.insertGlyph(new Character('%'),25);
-
-
-    composition.Draw(&w);
-
-}
-
+//void test(){
+//    Window w(9,20);
+//    Composition composition;
+//    formatting::Compositor* compositor;
+//
+//    insertion::Inserter* inserter = new insertion::SimpleInserter(&composition);
+//
+//
+//    formatting::SimpleCompositor* simpleCompositor = new formatting::SimpleCompositor(&composition);
+//    simpleCompositor->setWidth(w.getWidth());
+//
+//    compositor = simpleCompositor;
+//    compositor->setInserter(inserter);
+//
+//    composition.setCompositor(compositor);
+//
+//    int cnt = 0;
+//    for(char c: "Testiranje da li sve lepo radi nadam se da ima 20 karaktera bar!"){
+//        composition.insertGlyph(new Character(c),cnt++);
+//    }
+//
+//    composition.insertGlyph(new Character('T'),6);
+//    composition.insertGlyph(new Character('A'),6);
+//    composition.insertGlyph(new Character('%'),25);
+//
+//
+//    composition.Draw(&w);
+//
+//}
+//
 void testWithUI(){
     UI ui;
     ui.start();

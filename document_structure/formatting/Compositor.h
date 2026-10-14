@@ -25,12 +25,10 @@ namespace formatting {
            Composition* composition;
         public:
             Compositor(Composition* composition):composition(composition){}
-            virtual void onInsert(document_structure::Glyph* g,int)=0;
 
             virtual void compose(std::vector<document_structure::Glyph*>)=0;
             //called from composition to know if the recomposition is needed
             virtual bool dependsOn(const EnvironmentSource&){return false;}
-
 
         protected:
 
