@@ -38,4 +38,6 @@ add_executable(Lexi main.cpp
         ui/UI.cpp
         ui/UI.cpp
         ui/UI.cpp
+        document_structure/formatting/FullCompositor.cpp
+        document_structure/formatting/FullCompositor.h
 )
