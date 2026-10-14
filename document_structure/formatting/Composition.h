@@ -11,6 +11,7 @@
 #include "../Column.h"
 #include "../insertion/Inserter.h"
 #include "../insertion/SimpleInserter.h"
+#include "environment_source/EnvironmentSource.h"
 
 
 #include <vector>
@@ -49,6 +50,7 @@ namespace formatting {
                 this->compositor = compositor;
             }
 
+            void environmentChanged(const EnvironmentSource& s);
 
             friend class Compositor;
             friend class insertion::Inserter;

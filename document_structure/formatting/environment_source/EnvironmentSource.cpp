@@ -5,4 +5,5 @@
 #include "EnvironmentSource.h"
 
 namespace formatting {
-} // formatting
+    EnvironmentSource::~EnvironmentSource() = default;
+}

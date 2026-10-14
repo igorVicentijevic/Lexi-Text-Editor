@@ -62,4 +62,8 @@ namespace formatting {
 
         return flattened;
     }
+
+    void Composition::environmentChanged(const EnvironmentSource &s) {
+            if (compositor->dependsOn(s)) recompose();
+    }
 } // formatting

@@ -22,6 +22,10 @@ namespace appearance {
 
             int getWidth(){ return width;}
             int getHeight(){ return height;}
+
+        void setWidth(int width);
+
+        void setHeight(int height);
     };
 }
 

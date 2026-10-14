@@ -15,6 +15,10 @@ namespace formatting{
         public:
             LineWidthSource(appearance::Window& w):w(w){}
             int width() { return w.getWidth();}
+
+        ~LineWidthSource() override {
+
+        }
     };
 }
 

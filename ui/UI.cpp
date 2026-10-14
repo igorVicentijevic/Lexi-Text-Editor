@@ -84,15 +84,13 @@ void ui::UI::printConfig() {
     cout <<"Width: "<<window->getWidth()<<endl;
 }
 
-ui::UI::UI() {
+ui::UI::UI(){
     this->window = new Window(30,30);
     this->composition = new Composition();
-    formatting::Compositor* compositor;
 
-    insertion::Inserter* inserter = new insertion::SimpleInserter(composition);
+    lineWidthSource = new LineWidthSource(*window);
 
-
-//    formatting::FullCompositor* fullCompositor = new formatting::FullCompositor(composition);//new formatting::SimpleCompositor(composition);
+    formatting::FullCompositor* fullCompositor = new formatting::FullCompositor(composition,*lineWidthSource);//new formatting::SimpleCompositor(composition);
 //    fullCompositor->setWidth(window->getWidth());
 //
 //    this->compositor = fullCompositor;
@@ -100,7 +98,7 @@ ui::UI::UI() {
 //    compositor = fullCompositor;
 //    compositor->setInserter(inserter);
 
-    composition->setCompositor(compositor);
+    composition->setCompositor(fullCompositor);
 
 }
 
@@ -118,6 +116,7 @@ void ui::UI::handleWidthChange() {
     cout << "Input new width: "<<endl;
     int newWidth;
     cin >> newWidth;
-    this->window = new Window(newWidth,100);
+    this->window->setWidth(newWidth);
+    this->composition->environmentChanged(*lineWidthSource);
 
 }

@@ -9,13 +9,15 @@
 
 #include "../appearance/Window.h"
 #include "../document_structure/formatting/FullCompositor.h"
-
+#include "../document_structure/formatting/environment_source/LineWidthSource.h"
 namespace ui{
     class UI {
         private:
             formatting::Composition* composition;
             formatting::FullCompositor* compositor;
             appearance::Window* window;
+
+            formatting::LineWidthSource* lineWidthSource;
 
             int insertionPoint  = 0;
             bool quit = false;

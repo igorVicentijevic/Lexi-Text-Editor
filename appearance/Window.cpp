@@ -11,3 +11,11 @@ void appearance::Window::DrawCharacter(char c){
 void appearance::Window::DrawRect(int x0, int y0, int x1, int y1){
     std::cout<<"DrawRect: ("<<x0<<","<<y0<<")"<<"-("<<x1<<","<<y1<<")"<<std::endl;
 }
+
+void appearance::Window::setWidth(int width) {
+    Window::width = width;
+}
+
+void appearance::Window::setHeight(int height) {
+    Window::height = height;
+}
