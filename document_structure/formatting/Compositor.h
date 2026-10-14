@@ -9,6 +9,10 @@
 #include "../Row.h"
 #include "../Column.h"
 
+#include "environment_source/EnvironmentSource.h"
+
+#include <vector>
+
 namespace insertion  { class Inserter; }
 
 
@@ -19,21 +23,20 @@ namespace formatting {
     class Compositor {
         protected:
            Composition* composition;
-           insertion::Inserter* inserter;
-
-
         public:
             Compositor(Composition* composition):composition(composition){}
             virtual void onInsert(document_structure::Glyph* g,int)=0;
 
-            void setInserter(insertion::Inserter* inserter){
-                this->inserter = inserter;
-            }
+            virtual void compose(std::vector<document_structure::Glyph*>)=0;
+            //called from composition to know if the recomposition is needed
+            virtual bool dependsOn(const EnvironmentSource&){return false;}
+
+
         protected:
 
-        document_structure::Column* getColFromComposition();
+        document_structure::Glyph* getRootFromComposition();
 
-        void setColForComposition(document_structure::Column* col);
+        void setRootForComposition(document_structure::Glyph* root);
     };
 
 } // formatting

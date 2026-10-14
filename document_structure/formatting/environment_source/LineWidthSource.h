@@ -14,7 +14,7 @@ namespace formatting{
             appearance::Window& w;
         public:
             LineWidthSource(appearance::Window& w):w(w){}
-            int width(){ return w.getWidth();}
+            int width() { return w.getWidth();}
     };
 }
 
