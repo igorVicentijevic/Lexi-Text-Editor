@@ -89,16 +89,7 @@ ui::UI::UI(){
     this->composition = new Composition();
 
     lineWidthSource = new LineWidthSource(*window);
-
-    formatting::FullCompositor* fullCompositor = new formatting::FullCompositor(composition,*lineWidthSource);//new formatting::SimpleCompositor(composition);
-//    fullCompositor->setWidth(window->getWidth());
-//
-//    this->compositor = fullCompositor;
-//
-//    compositor = fullCompositor;
-//    compositor->setInserter(inserter);
-
-    composition->setCompositor(fullCompositor);
+    composition->setCompositor(new formatting::FullCompositor(composition,*lineWidthSource));
 
 }
 

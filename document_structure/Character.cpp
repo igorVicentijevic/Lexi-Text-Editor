@@ -21,13 +21,6 @@ namespace document_structure {
         return true;
     }
 
-    void Character::Insert(Glyph*){
-        //ERROR karakter je list
-    }
-
-    void Character::Remove(Glyph*){
-        //ERROR karakter je list
-    }
 
     //print
 

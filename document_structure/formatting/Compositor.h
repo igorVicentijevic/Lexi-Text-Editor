@@ -27,13 +27,13 @@ namespace formatting {
             Compositor(Composition* composition):composition(composition){}
 
             virtual void compose(std::vector<document_structure::Glyph*>)=0;
+
             //called from composition to know if the recomposition is needed
             virtual bool dependsOn(const EnvironmentSource&){return false;}
 
         protected:
 
         document_structure::Glyph* getRootFromComposition();
-
         void setRootForComposition(document_structure::Glyph* root);
     };
 

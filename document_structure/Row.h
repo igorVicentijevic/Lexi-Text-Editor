@@ -23,9 +23,7 @@ namespace document_structure {
             //hit detection
             bool Intersects(const Point&) override;
 
-            //structure
-            void Insert(Glyph*) override;
-            void Remove(Glyph*) override;
+
 
             void insertGlyph(Glyph*, int pos);
 
@@ -39,6 +37,10 @@ namespace document_structure {
             std::vector<Glyph*>& getChildren(){
                 return children;
             }
+
+        void Insert(Glyph *g);
+
+        void Remove(Glyph *g);
     };
 
 } // document_structure

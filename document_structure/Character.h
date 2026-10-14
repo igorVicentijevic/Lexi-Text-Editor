@@ -21,9 +21,7 @@ namespace document_structure {
             //hit detection
             bool Intersects(const Point&) override;
 
-            //structure
-            void Insert(Glyph*) override;
-            void Remove(Glyph*) override;
+
 
 
             //print

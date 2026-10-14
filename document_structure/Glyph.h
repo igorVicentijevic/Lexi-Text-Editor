@@ -33,9 +33,6 @@ namespace document_structure {
             //hit detection
             virtual bool Intersects(const Point&)=0;
 
-            //structure
-            virtual void Insert(Glyph*)=0;
-            virtual void Remove(Glyph*)=0;
 
             virtual std::string getType() const = 0;
 
@@ -43,7 +40,6 @@ namespace document_structure {
             void setParent(Glyph* g);
 
             //print
-
 
             int getId() const;
 

@@ -22,10 +22,10 @@ namespace document_structure {
 
         bool Intersects(const Point &point) override;
 
-        void Insert(Glyph *glyph) override;
+        void Insert(Glyph *glyph);
         void insertRow(Row* row);
 
-        void Remove(Glyph *glyph) override;
+        void Remove(Glyph *glyph);
 
         std::string getType() const override;
 

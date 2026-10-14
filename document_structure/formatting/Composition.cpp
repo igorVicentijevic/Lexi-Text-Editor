@@ -24,14 +24,6 @@ namespace formatting {
         return false;
     }
 
-    void Composition::Insert(document_structure::Glyph * g) {
-        //this->compositor->onInsert(g);
-
-    }
-
-    void Composition::Remove(document_structure::Glyph *) {
-
-    }
 
     std::string Composition::getType() const {
         return "Composition";
