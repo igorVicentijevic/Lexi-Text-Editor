@@ -5,7 +5,6 @@
 #include "document_structure/Row.h"
 #include "document_structure/formatting/Composition.h"
 
-#include "document_structure/insertion/SimpleInserter.h"
 
 #include "ui/UI.h"
 

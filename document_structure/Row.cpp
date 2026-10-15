@@ -4,6 +4,8 @@
 
 #include "Row.h"
 
+#include <algorithm>
+
 namespace document_structure {
 
 
@@ -32,8 +34,9 @@ namespace document_structure {
     }
 
     void Row::Remove(Glyph* g){
-        int i = std::find(children.begin(), children.end(),g)-children.begin();
-        children.erase(children.begin()+i);
+        auto it = std::find(children.begin(), children.end(),g);
+        if(it == children.end()) return;
+        children.erase(it);
         g->setParent(nullptr);
     }
 

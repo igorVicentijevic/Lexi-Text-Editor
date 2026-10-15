@@ -5,15 +5,20 @@
 #include "Composition.h"
 #include "Compositor.h"
 
-#include "../insertion/SimpleInserter.h"
-
 using namespace document_structure;
 
 namespace formatting {
 
+    Composition::~Composition() {
+        delete layout;
+        for(Glyph* g: glyphs){
+            delete g;
+        }
+    }
+
     void Composition::Draw(Window * w) {
-        if(root)
-            root->Draw(w);
+        if(layout)
+            layout->Draw(w);
     }
 
     void Composition::Bounds(Rect &) {
@@ -30,32 +35,25 @@ namespace formatting {
     }
 
     void Composition::insertGlyph(Glyph * g, int insertionPoint) {
-        //this->compositor->onInsert(g,insertionPoint);
-        this->inserter->insertGlyph(g,insertionPoint);
+        if(insertionPoint < 0) insertionPoint = 0;
+        if(insertionPoint > (int)glyphs.size()) insertionPoint = glyphs.size();
+
+        glyphs.insert(glyphs.begin() + insertionPoint, g);
+        g->setParent(this);
+        recompose();
+    }
+
+    void Composition::setCompositor(Compositor *compositor) {
+        this->compositor = compositor;
         recompose();
     }
 
     void Composition::recompose() {
-        auto flattened = this->flattendAndDeleteStructure();
-        this->compositor->compose(flattened);
-    }
-
-    std::vector<Glyph *> Composition::flattendAndDeleteStructure() {
-        Column* col = dynamic_cast<Column*>(this->root);
-        std::vector<Glyph*> flattened;
-
-        for(Row* row: col->getChildren()){
-            for(Glyph* g: row->getChildren()){
-                flattened.push_back(g);
-            }
-            delete row;
-        }
-        delete col;
-
-        return flattened;
+        delete layout;
+        layout = compositor ? compositor->compose(glyphs) : nullptr;
     }
 
     void Composition::environmentChanged(const EnvironmentSource &s) {
-            if (compositor->dependsOn(s)) recompose();
+        if (compositor && compositor->dependsOn(s)) recompose();
     }
 } // formatting

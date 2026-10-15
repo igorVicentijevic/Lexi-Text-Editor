@@ -5,7 +5,6 @@
 #include "UI.h"
 #include "../document_structure/Character.h"
 #include "../document_structure/formatting/FullCompositor.h"
-#include "../document_structure/insertion/SimpleInserter.h"
 #include "../document_structure/formatting/FullCompositor.h"
 
 #include <iostream>
@@ -13,6 +12,7 @@
 using namespace std;
 
 using namespace appearance;
+using namespace document_structure;
 using namespace formatting;
 
 void ui::UI::start() {
@@ -89,7 +89,7 @@ ui::UI::UI(){
     this->composition = new Composition();
 
     lineWidthSource = new LineWidthSource(*window);
-    composition->setCompositor(new formatting::FullCompositor(composition,*lineWidthSource));
+    composition->setCompositor(new formatting::FullCompositor(*lineWidthSource));
 
 }
 

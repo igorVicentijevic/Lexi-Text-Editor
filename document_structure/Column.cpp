@@ -3,7 +3,16 @@
 //
 
 #include "Column.h"
+
+#include <algorithm>
 using namespace document_structure;
+
+//rows belong to the layout, glyphs inside them belong to the composition
+Column::~Column() {
+    for(Row* row: children){
+        delete row;
+    }
+}
 
 void Column::Draw(Window *window) {
         for(Glyph* curr: this->children){
@@ -24,8 +33,9 @@ void Column::Insert(document_structure::Glyph *g) {
 }
 
 void Column::Remove(document_structure::Glyph *g) {
-    int i = std::find(children.begin(), children.end(),g)-children.begin();
-    children.erase(children.begin()+i);
+    auto it = std::find(children.begin(), children.end(),g);
+    if(it == children.end()) return;
+    children.erase(it);
     g->setParent(nullptr);
 }
 

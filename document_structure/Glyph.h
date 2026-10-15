@@ -25,6 +25,7 @@ namespace document_structure {
 
         public:
             Glyph();
+            virtual ~Glyph() = default;
             //appearance
             virtual void Draw(Window* )=0;
             //returns the opposite corners of the smallest rectangle that contains glyph

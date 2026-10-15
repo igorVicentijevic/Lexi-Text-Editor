@@ -3,38 +3,28 @@
 //
 
 #include "FullCompositor.h"
-#include "../insertion/SimpleInserter.h"
+
+using namespace document_structure;
 
 namespace formatting {
 
-    FullCompositor::FullCompositor(Composition *composition, LineWidthSource &widthSource):
-    Compositor(composition),widthSource(widthSource){
-        //this->inserter = new insertion::SimpleInserter();
-    }
+    FullCompositor::FullCompositor(LineWidthSource &widthSource): widthSource(widthSource){}
 
-
-    void FullCompositor::compose(std::vector<document_structure::Glyph *>  flattened) {
-        Column* newColumn = this->createNewStructure(flattened);
-        this->setRootForComposition(newColumn);
-    }
-
-    bool FullCompositor::dependsOn(const EnvironmentSource &source) {
+    bool FullCompositor::dependsOn(const EnvironmentSource &source) const {
         //TODO change to not compare by referance because maybe this two can be coppies of the same source
         return &source == &this->widthSource;
     }
 
-
-
-
-
-    Column *FullCompositor::createNewStructure(const std::vector<Glyph *> & flattened) {
+    Glyph* FullCompositor::compose(const std::vector<Glyph *> & glyphs) {
         Column* col = new Column();
+        int width = widthSource.width();
+        if(width < 1) width = 1;
+
         int currInRow = 0;
-
         Row* row = nullptr;
-        for(Glyph* g: flattened){
+        for(Glyph* g: glyphs){
 
-            if(currInRow == widthSource.width()){
+            if(currInRow == width){
                 col->insertRow(row);
                 currInRow = 0;
             }

@@ -6,30 +6,25 @@
 #define LEXI_COMPOSITION_H
 
 #include "../Glyph.h"
-#include "../Row.h"
-
-#include "../Column.h"
-#include "../insertion/Inserter.h"
-#include "../insertion/SimpleInserter.h"
 #include "environment_source/EnvironmentSource.h"
 
-
 #include <vector>
-
-using namespace document_structure;
 
 namespace formatting {
     class Compositor;
     class Composition: public document_structure::Glyph {
         private:
-            Glyph* root = nullptr;
+            //logical structure - owned glyphs in document order
+            std::vector<document_structure::Glyph*> glyphs;
+            //physical structure - built by compositor, owned
+            document_structure::Glyph* layout = nullptr;
+
             Compositor* compositor = nullptr;
-            insertion::Inserter* inserter = new insertion::SimpleInserter(this);
 
             void recompose();
-            std::vector<Glyph*> flattendAndDeleteStructure();
 
         public:
+            ~Composition() override;
 
             void Draw(Window* ) override;
 
@@ -38,18 +33,12 @@ namespace formatting {
 
             //hit detection
             bool Intersects(const Point&) override;
-
-            void insertGlyph(Glyph*,int);
+            void insertGlyph(document_structure::Glyph*,int);
 
             //compositor
-            void setCompositor(Compositor* compositor){
-                this->compositor = compositor;
-            }
+            void setCompositor(Compositor* compositor);
 
             void environmentChanged(const EnvironmentSource& s);
-
-            friend class Compositor;
-            friend class insertion::Inserter;
 
             std::string getType() const override;
     };

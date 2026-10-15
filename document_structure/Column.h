@@ -16,6 +16,8 @@ namespace document_structure {
     private:
         std::vector<document_structure::Row*> children;
     public:
+        ~Column() override;
+
         void Draw(Window *window) override;
 
         void Bounds(Rect &rect) override;

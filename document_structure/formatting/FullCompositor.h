@@ -7,8 +7,7 @@
 
 #include "Compositor.h"
 #include "../Glyph.h"
-#include "../Row.h"
-#include "../insertion/Inserter.h"
+#include "../Column.h"
 
 #include "environment_source/LineWidthSource.h"
 #include <vector>
@@ -20,13 +19,11 @@ namespace formatting {
             private:
                 LineWidthSource& widthSource;
 
-            private:
-                Column *createNewStructure(const std::vector<Glyph *> & flattened);
             public:
-                explicit FullCompositor(Composition *composition,LineWidthSource& widthSource );
-                void compose(std::vector<document_structure::Glyph *> vector) override;
+                explicit FullCompositor(LineWidthSource& widthSource);
+                document_structure::Glyph* compose(const std::vector<document_structure::Glyph *>& glyphs) override;
 
-                bool dependsOn(const EnvironmentSource &source) override;
+                bool dependsOn(const EnvironmentSource &source) const override;
 
     };
 

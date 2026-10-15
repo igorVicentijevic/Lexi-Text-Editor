@@ -24,18 +24,8 @@ add_executable(Lexi main.cpp
         document_structure/formatting/Compositor.h
         document_structure/Column.cpp
         document_structure/Column.h
-        document_structure/insertion/Inserter.cpp
-        document_structure/insertion/Inserter.h
-        document_structure/insertion/SimpleInserter.cpp
-        document_structure/insertion/SimpleInserter.h
         ui/UI.cpp
         ui/UI.h
-        ui/UI.cpp
-        ui/UI.cpp
-        ui/UI.cpp
-        ui/UI.cpp
-        ui/UI.cpp
-        ui/UI.cpp
         document_structure/formatting/FullCompositor.cpp
         document_structure/formatting/FullCompositor.h
         document_structure/formatting/environment_source/EnvironmentSource.cpp
