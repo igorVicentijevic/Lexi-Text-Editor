@@ -6,20 +6,29 @@
 #define LEXI_CHANGEWIDTHCOMMAND_H
 
 #include "Command.h"
-#include "../editor/Editor.h"
+#include "../appearance/Window.h"
+#include "../document_structure/formatting/Composition.h"
+#include "../document_structure/formatting/environment_source/LineWidthSource.h"
 
 namespace commands {
 
     //changes window width and reformats the document
     class ChangeWidthCommand: public Command {
         private:
-            editor::Editor& editor;
+            appearance::Window& window;
+            formatting::Composition& composition;
+            formatting::LineWidthSource& widthSource;
             int width;
 
         public:
-            ChangeWidthCommand(editor::Editor& editor, int width): editor(editor), width(width){}
+            ChangeWidthCommand(appearance::Window& window, formatting::Composition& composition,
+                               formatting::LineWidthSource& widthSource, int width):
+                window(window), composition(composition), widthSource(widthSource), width(width){}
 
-            void Execute() override { editor.setWidth(width); }
+            void Execute() override {
+                window.setWidth(width);
+                composition.environmentChanged(widthSource);
+            }
     };
 
 } // commands

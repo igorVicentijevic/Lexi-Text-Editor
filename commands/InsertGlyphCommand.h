@@ -6,7 +6,8 @@
 #define LEXI_INSERTGLYPHCOMMAND_H
 
 #include "Command.h"
-#include "../editor/Editor.h"
+#include "../document_structure/formatting/Composition.h"
+#include "../editor/InsertionPoint.h"
 
 namespace commands {
 
@@ -14,13 +15,15 @@ namespace commands {
     //After Execute the composition owns the glyph, before that the command does.
     class InsertGlyphCommand: public Command {
         private:
-            editor::Editor& editor;
+            formatting::Composition& composition;
+            editor::InsertionPoint& insertionPoint;
             document_structure::Glyph* glyph;
             int pos;
             bool executed = false;
 
         public:
-            InsertGlyphCommand(editor::Editor& editor, document_structure::Glyph* glyph, int pos);
+            InsertGlyphCommand(formatting::Composition& composition, editor::InsertionPoint& insertionPoint,
+                               document_structure::Glyph* glyph, int pos);
             ~InsertGlyphCommand() override;
 
             InsertGlyphCommand(const InsertGlyphCommand&) = delete;

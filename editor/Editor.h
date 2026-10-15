@@ -6,22 +6,30 @@
 #define LEXI_EDITOR_H
 
 #include "../appearance/Window.h"
-#include "../document_structure/formatting/Composition.h"
-#include "../document_structure/formatting/Compositor.h"
-#include "../document_structure/formatting/environment_source/LineWidthSource.h"
+#include "../appearance/Point.h"
+#include "../document_structure/Glyph.h"
+
+namespace formatting {
+    class Composition;
+    class Compositor;
+    class LineWidthSource;
+}
+namespace commands { class CommandFactory; }
 
 namespace editor {
 
-    //State of the editor that commands work on.
-    //Owns the window, the document and everything needed to format it.
+    class InsertionPoint;
+
+    //Creates and connects everything the editor is made of and owns it.
+    //Changes are made through commands, the rest is what the UI needs to show the document.
     class Editor {
         private:
             appearance::Window* window;
             formatting::LineWidthSource* lineWidthSource;
             formatting::Compositor* compositor;
             formatting::Composition* composition;
-
-            int insertionPoint = 0;
+            InsertionPoint* insertionPoint;
+            commands::CommandFactory* factory;
 
         public:
             //takes ownership of the window
@@ -31,15 +39,15 @@ namespace editor {
             Editor(const Editor&) = delete;
             Editor& operator=(const Editor&) = delete;
 
-            formatting::Composition& getComposition() { return *composition; }
-            appearance::Window& getWindow() { return *window; }
+            commands::CommandFactory& commands();
 
-            int getInsertionPoint() const { return insertionPoint; }
-            //clamped to the document
-            void setInsertionPoint(int pos);
+            //draws the document and shows it in the window
+            void redraw();
+            //deepest glyph at the point, nullptr if there is none
+            document_structure::Glyph* hitTest(const appearance::Point& p);
 
-            //changes window width and reformats the document
-            void setWidth(int width);
+            int getInsertionPoint() const;
+            int getWidth() const;
     };
 
 } // editor

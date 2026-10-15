@@ -6,8 +6,9 @@
 
 namespace commands {
 
-    InsertGlyphCommand::InsertGlyphCommand(editor::Editor& editor, document_structure::Glyph* glyph, int pos):
-        editor(editor), glyph(glyph), pos(pos){}
+    InsertGlyphCommand::InsertGlyphCommand(formatting::Composition& composition, editor::InsertionPoint& insertionPoint,
+                                           document_structure::Glyph* glyph, int pos):
+        composition(composition), insertionPoint(insertionPoint), glyph(glyph), pos(pos){}
 
     InsertGlyphCommand::~InsertGlyphCommand() {
         if(!executed) delete glyph;
@@ -16,9 +17,9 @@ namespace commands {
     void InsertGlyphCommand::Execute() {
         if(executed) return;
 
-        editor.getComposition().insertGlyph(glyph, pos);
+        composition.insertGlyph(glyph, pos);
         executed = true;
-        editor.setInsertionPoint(pos + 1);
+        insertionPoint.set(pos + 1);
     }
 
 } // commands

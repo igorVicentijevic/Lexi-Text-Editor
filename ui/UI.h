@@ -7,19 +7,14 @@
 
 #include "../editor/Editor.h"
 #include "../commands/Command.h"
+#include "MenuItem.h"
 
-#include <string>
 #include <vector>
 
 namespace ui{
     //Console input/output: reads what the user wants, turns it into a command and executes it.
     class UI {
         private:
-            struct MenuItem {
-                std::string label;
-                void (UI::*handler)();
-            };
-
             editor::Editor* editor;
             std::vector<MenuItem> menu;
 

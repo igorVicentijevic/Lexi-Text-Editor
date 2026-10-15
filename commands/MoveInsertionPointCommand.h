@@ -6,19 +6,20 @@
 #define LEXI_MOVEINSERTIONPOINTCOMMAND_H
 
 #include "Command.h"
-#include "../editor/Editor.h"
+#include "../editor/InsertionPoint.h"
 
 namespace commands {
 
     class MoveInsertionPointCommand: public Command {
         private:
-            editor::Editor& editor;
+            editor::InsertionPoint& insertionPoint;
             int pos;
 
         public:
-            MoveInsertionPointCommand(editor::Editor& editor, int pos): editor(editor), pos(pos){}
+            MoveInsertionPointCommand(editor::InsertionPoint& insertionPoint, int pos):
+                insertionPoint(insertionPoint), pos(pos){}
 
-            void Execute() override { editor.setInsertionPoint(pos); }
+            void Execute() override { insertionPoint.set(pos); }
     };
 
 } // commands

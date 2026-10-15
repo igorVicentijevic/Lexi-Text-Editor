@@ -3,7 +3,11 @@
 //
 
 #include "Editor.h"
+#include "InsertionPoint.h"
+#include "../document_structure/formatting/Composition.h"
 #include "../document_structure/formatting/FullCompositor.h"
+#include "../document_structure/formatting/environment_source/LineWidthSource.h"
+#include "../commands/CommandFactory.h"
 
 namespace editor {
 
@@ -12,25 +16,41 @@ namespace editor {
         compositor = new formatting::FullCompositor(*lineWidthSource);
         composition = new formatting::Composition();
         composition->setCompositor(compositor);
+        insertionPoint = new InsertionPoint(*composition);
+
+        //everything exists, the factory can get its receivers
+        factory = new commands::CommandFactory(*composition, *window, *lineWidthSource, *insertionPoint);
     }
 
     Editor::~Editor() {
-        //composition uses the compositor, compositor uses the width source, width source uses the window
+        //everyone is deleted before the objects it uses
+        delete factory;
+        delete insertionPoint;
         delete composition;
         delete compositor;
         delete lineWidthSource;
         delete window;
     }
 
-    void Editor::setInsertionPoint(int pos) {
-        if(pos < 0) pos = 0;
-        if(pos > composition->ChildCount()) pos = composition->ChildCount();
-        insertionPoint = pos;
+    commands::CommandFactory& Editor::commands() {
+        return *factory;
     }
 
-    void Editor::setWidth(int width) {
-        window->setWidth(width);
-        composition->environmentChanged(*lineWidthSource);
+    void Editor::redraw() {
+        composition->Draw(window);
+        window->Flush();
+    }
+
+    document_structure::Glyph* Editor::hitTest(const appearance::Point& p) {
+        return composition->HitTest(p);
+    }
+
+    int Editor::getInsertionPoint() const {
+        return insertionPoint->get();
+    }
+
+    int Editor::getWidth() const {
+        return window->getWidth();
     }
 
 } // editor
