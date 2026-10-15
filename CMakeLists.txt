@@ -8,6 +8,9 @@ add_executable(Lexi main.cpp
         document_structure/Glyph.h
         appearance/Window.cpp
         appearance/Window.h
+        appearance/WindowImp.h
+        appearance/ConsoleWindowImp.cpp
+        appearance/ConsoleWindowImp.h
         appearance/Rect.cpp
         appearance/Rect.h
         appearance/Point.cpp

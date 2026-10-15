@@ -6,28 +6,32 @@
 #define LEXI_WINDOW_H
 
 #include "Rect.h"
-
-#include <string>
-#include <vector>
+#include "WindowImp.h"
 
 namespace appearance {
-    //console window: drawing goes into a character buffer, Flush prints it
+    //Abstraction part of the Bridge: what glyphs draw on.
+    //Platform specific work is forwarded to WindowImp.
     class Window {
         private:
             int width;
             int height;
 
-            std::vector<std::string> buffer;
+            //owned
+            WindowImp* imp;
 
         public:
 
-            Window(int width, int height):width(width), height(height){}
+            Window(int width, int height, WindowImp* imp);
+            ~Window();
+
+            Window(const Window&) = delete;
+            Window& operator=(const Window&) = delete;
 
             void DrawRect(int x0, int y0, int x1, int y1);
             //coordinates are in document units (one character = one cell)
             void DrawCharacter(char c, int x, int y);
 
-            //prints everything drawn since the last flush
+            //shows everything drawn since the last flush
             void Flush();
 
             int getWidth(){ return width;}

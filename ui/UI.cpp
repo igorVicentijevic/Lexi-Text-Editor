@@ -5,7 +5,7 @@
 #include "UI.h"
 #include "../document_structure/Character.h"
 #include "../document_structure/formatting/FullCompositor.h"
-#include "../document_structure/formatting/FullCompositor.h"
+#include "../appearance/ConsoleWindowImp.h"
 
 #include <iostream>
 
@@ -90,7 +90,7 @@ void ui::UI::printConfig() {
 }
 
 ui::UI::UI(){
-    this->window = new Window(30,30);
+    this->window = new Window(30,30, new ConsoleWindowImp());
     this->composition = new Composition();
 
     lineWidthSource = new LineWidthSource(*window);
