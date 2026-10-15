@@ -9,24 +9,18 @@
 
 namespace ui {
 
-    class UI;
-
-    //one option of the console menu: what is shown and which UI handler is called
+    //one option of the console menu: what is shown and what happens when it is selected
     class MenuItem {
-        public:
-            typedef void (UI::*Handler)();
-
         private:
             std::string label;
-            Handler handler;
 
         public:
-            MenuItem(const std::string& label, Handler handler);
+            explicit MenuItem(const std::string& label);
+            virtual ~MenuItem() = default;
 
             const std::string& getLabel() const;
 
-            //calls the handler on the given ui
-            void select(UI& ui) const;
+            virtual void select() = 0;
     };
 
 } // ui

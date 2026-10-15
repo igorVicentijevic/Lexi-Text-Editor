@@ -3,18 +3,13 @@
 //
 
 #include "MenuItem.h"
-#include "UI.h"
 
 namespace ui {
 
-    MenuItem::MenuItem(const std::string& label, Handler handler): label(label), handler(handler){}
+    MenuItem::MenuItem(const std::string& label): label(label){}
 
     const std::string& MenuItem::getLabel() const {
         return label;
-    }
-
-    void MenuItem::select(UI& ui) const {
-        (ui.*handler)();
     }
 
 } // ui

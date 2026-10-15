@@ -33,6 +33,8 @@ add_executable(Lexi main.cpp
         ui/UI.h
         ui/MenuItem.cpp
         ui/MenuItem.h
+        ui/MenuItems.cpp
+        ui/MenuItems.h
         editor/Editor.cpp
         editor/Editor.h
         editor/InsertionPoint.cpp
