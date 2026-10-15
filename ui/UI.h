@@ -5,21 +5,24 @@
 #ifndef LEXI_UI_H
 #define LEXI_UI_H
 
-#include "../document_structure/formatting/Composition.h"
+#include "../editor/Editor.h"
+#include "../commands/Command.h"
 
-#include "../appearance/Window.h"
-#include "../document_structure/formatting/FullCompositor.h"
-#include "../document_structure/formatting/environment_source/LineWidthSource.h"
+#include <string>
+#include <vector>
+
 namespace ui{
+    //Console input/output: reads what the user wants, turns it into a command and executes it.
     class UI {
         private:
-            formatting::Composition* composition;
-            formatting::FullCompositor* compositor;
-            appearance::Window* window;
+            struct MenuItem {
+                std::string label;
+                void (UI::*handler)();
+            };
 
-            formatting::LineWidthSource* lineWidthSource;
+            editor::Editor* editor;
+            std::vector<MenuItem> menu;
 
-            int insertionPoint  = 0;
             bool quit = false;
 
         private:
@@ -27,14 +30,24 @@ namespace ui{
             void printOptions();
             int readOption();
             void callOption(int);
+
+            //executes and deletes the command
+            void execute(commands::Command* c);
+
             void handlePutInsertionPoint();
             void handleInsertCharacterOnInsertionPoint();
             void handleAddStringToInsertionPoint();
+            void handleQuit();
             void handleWidthChange();
             void handleHitTest();
             void handleAddRectangleToInsertionPoint();
         public:
             UI();
+            ~UI();
+
+            UI(const UI&) = delete;
+            UI& operator=(const UI&) = delete;
+
             void start();
 
     };

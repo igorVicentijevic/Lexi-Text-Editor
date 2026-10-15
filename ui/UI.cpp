@@ -5,8 +5,11 @@
 #include "UI.h"
 #include "../document_structure/Character.h"
 #include "../document_structure/Rectangle.h"
-#include "../document_structure/formatting/FullCompositor.h"
 #include "../appearance/ConsoleWindowImp.h"
+#include "../commands/InsertGlyphCommand.h"
+#include "../commands/MacroCommand.h"
+#include "../commands/MoveInsertionPointCommand.h"
+#include "../commands/ChangeWidthCommand.h"
 
 #include <iostream>
 
@@ -14,12 +17,31 @@ using namespace std;
 
 using namespace appearance;
 using namespace document_structure;
-using namespace formatting;
+using namespace commands;
+
+ui::UI::UI(){
+    this->editor = new editor::Editor(new Window(30,30, new ConsoleWindowImp()));
+
+    //new option = new line here
+    menu = {
+        {"Put insertion point",                &UI::handlePutInsertionPoint},
+        {"Write char on insertion point",      &UI::handleInsertCharacterOnInsertionPoint},
+        {"Add string to insertion point",      &UI::handleAddStringToInsertionPoint},
+        {"Quit",                               &UI::handleQuit},
+        {"Change window width",                &UI::handleWidthChange},
+        {"Hit test (x y)",                     &UI::handleHitTest},
+        {"Add rectangle to insertion point",   &UI::handleAddRectangleToInsertionPoint},
+    };
+}
+
+ui::UI::~UI() {
+    delete editor;
+}
 
 void ui::UI::start() {
     while(true){
-        this->composition->Draw(this->window);
-        this->window->Flush();
+        editor->getComposition().Draw(&editor->getWindow());
+        editor->getWindow().Flush();
         this->printConfig();
         this->printOptions();
         int option = this->readOption();
@@ -29,46 +51,17 @@ void ui::UI::start() {
     }
 }
 
-void ui::UI::handleInsertCharacterOnInsertionPoint() {
-    cout << "Unesite karakter: ";
-    char c;
-    cin>> c;
-
-    composition->insertGlyph(new Character(c),insertionPoint);
-    insertionPoint++;
-}
-
-void ui::UI::handlePutInsertionPoint() {
-    cout << "Input insertion point: "<<endl;
-    cin >> insertionPoint;
+void ui::UI::execute(Command* c) {
+    c->Execute();
+    delete c;
 }
 
 void ui::UI::callOption(int option) {
-    switch (option) {
-        case 1:
-            handlePutInsertionPoint();
-            break;
-        case 2:
-            handleInsertCharacterOnInsertionPoint();
-            break;
-        case 3:
-            handleAddStringToInsertionPoint();
-            break;
-        case 4:
-            quit = true;
-            break;
-        case 5:
-            handleWidthChange();
-            break;
-        case 6:
-            handleHitTest();
-            break;
-        case 7:
-            handleAddRectangleToInsertionPoint();
-            break;
-        default:
-            cout << "Nevalidna opcija! Unesite ponovo!";
+    if(option < 1 || option > (int)menu.size()){
+        cout << "Nevalidna opcija! Unesite ponovo!" << endl;
+        return;
     }
+    (this->*menu[option - 1].handler)();
 }
 
 int ui::UI::readOption() {
@@ -79,47 +72,57 @@ int ui::UI::readOption() {
 
 void ui::UI::printOptions() {
     cout<<"######################"<<endl;
-    cout<<"1. Put insertion point"<<endl;
-    cout<<"2. Write char on insertion point"<<endl;
-    cout<<"3. Add string to insertion point"<<endl;
-    cout<<"4. Quit"<<endl;
-    cout<<"5. Change window width"<<endl;
-    cout<<"6. Hit test (x y)"<<endl;
-    cout<<"7. Add rectangle to insertion point"<<endl;
+    for(int i = 0; i < (int)menu.size(); i++){
+        cout << i + 1 << ". " << menu[i].label << endl;
+    }
     cout<<"######################"<<endl;
 }
 
 void ui::UI::printConfig() {
-    cout <<"Insertion point location: "<<insertionPoint<<endl;
-    cout <<"Width: "<<window->getWidth()<<endl;
+    cout <<"Insertion point location: "<<editor->getInsertionPoint()<<endl;
+    cout <<"Width: "<<editor->getWindow().getWidth()<<endl;
 }
 
-ui::UI::UI(){
-    this->window = new Window(30,30, new ConsoleWindowImp());
-    this->composition = new Composition();
+void ui::UI::handlePutInsertionPoint() {
+    cout << "Input insertion point: "<<endl;
+    int pos;
+    cin >> pos;
+    execute(new MoveInsertionPointCommand(*editor, pos));
+}
 
-    lineWidthSource = new LineWidthSource(*window);
-    composition->setCompositor(new formatting::FullCompositor(*lineWidthSource));
-
+void ui::UI::handleInsertCharacterOnInsertionPoint() {
+    cout << "Unesite karakter: ";
+    char c;
+    cin>> c;
+    execute(new InsertGlyphCommand(*editor, new Character(c), editor->getInsertionPoint()));
 }
 
 void ui::UI::handleAddStringToInsertionPoint() {
     cout << "Input string: "<<endl;
     string s;
     cin >> s;
+
+    MacroCommand* m = new MacroCommand();
+    int pos = editor->getInsertionPoint();
     for(char c: s){
-        composition->insertGlyph(new Character(c),insertionPoint);
-        insertionPoint++;
+        m->Add(new InsertGlyphCommand(*editor, new Character(c), pos++));
     }
+    execute(m);
+}
+
+void ui::UI::handleQuit() {
+    quit = true;
 }
 
 void ui::UI::handleWidthChange() {
     cout << "Input new width: "<<endl;
     int newWidth;
     cin >> newWidth;
-    this->window->setWidth(newWidth);
-    this->composition->environmentChanged(*lineWidthSource);
-
+    if(newWidth < 1){
+        cout << "Width must be at least 1!" << endl;
+        return;
+    }
+    execute(new ChangeWidthCommand(*editor, newWidth));
 }
 
 void ui::UI::handleAddRectangleToInsertionPoint() {
@@ -130,15 +133,14 @@ void ui::UI::handleAddRectangleToInsertionPoint() {
         cout << "Width and height must be at least 1!" << endl;
         return;
     }
-    composition->insertGlyph(new Rectangle(width, height), insertionPoint);
-    insertionPoint++;
+    execute(new InsertGlyphCommand(*editor, new Rectangle(width, height), editor->getInsertionPoint()));
 }
 
 void ui::UI::handleHitTest() {
     cout << "Input x y: "<<endl;
     int x, y;
     cin >> x >> y;
-    Glyph* hit = composition->HitTest(Point(x, y));
+    Glyph* hit = editor->getComposition().HitTest(Point(x, y));
     if(auto* c = dynamic_cast<Character*>(hit)){
         cout << "Hit character '" << c->getChar() << "' (id " << c->getId() << ")" << endl;
     }

@@ -31,6 +31,15 @@ add_executable(Lexi main.cpp
         document_structure/CompositeGlyph.h
         ui/UI.cpp
         ui/UI.h
+        editor/Editor.cpp
+        editor/Editor.h
+        commands/Command.h
+        commands/InsertGlyphCommand.cpp
+        commands/InsertGlyphCommand.h
+        commands/MacroCommand.cpp
+        commands/MacroCommand.h
+        commands/MoveInsertionPointCommand.h
+        commands/ChangeWidthCommand.h
         document_structure/formatting/FullCompositor.cpp
         document_structure/formatting/FullCompositor.h
         document_structure/formatting/environment_source/EnvironmentSource.cpp
