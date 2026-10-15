@@ -21,21 +21,25 @@ namespace formatting {
         int width = widthSource.width();
         if(width < 1) width = 1;
 
-        int currInRow = 0;
+        int rowWidth = 0;
         Row* row = nullptr;
         for(Glyph* g: glyphs){
+            Rect r;
+            g->Bounds(r);
 
-            if(currInRow == width){
+            //glyph doesn't fit - start a new row (a glyph wider than the line gets a row of its own)
+            if(row != nullptr && rowWidth + r.width() > width){
                 col->Insert(row, col->ChildCount());
-                currInRow = 0;
+                row = nullptr;
             }
 
-            if(currInRow == 0){
+            if(row == nullptr){
                 row = new Row();
+                rowWidth = 0;
             }
 
-            row->Insert(g,currInRow);
-            currInRow ++;
+            row->Insert(g, row->ChildCount());
+            rowWidth += r.width();
         }
 
         if(row!= nullptr)

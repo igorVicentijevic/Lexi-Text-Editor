@@ -4,6 +4,7 @@
 
 #include "UI.h"
 #include "../document_structure/Character.h"
+#include "../document_structure/Rectangle.h"
 #include "../document_structure/formatting/FullCompositor.h"
 #include "../appearance/ConsoleWindowImp.h"
 
@@ -62,6 +63,9 @@ void ui::UI::callOption(int option) {
         case 6:
             handleHitTest();
             break;
+        case 7:
+            handleAddRectangleToInsertionPoint();
+            break;
         default:
             cout << "Nevalidna opcija! Unesite ponovo!";
     }
@@ -81,6 +85,7 @@ void ui::UI::printOptions() {
     cout<<"4. Quit"<<endl;
     cout<<"5. Change window width"<<endl;
     cout<<"6. Hit test (x y)"<<endl;
+    cout<<"7. Add rectangle to insertion point"<<endl;
     cout<<"######################"<<endl;
 }
 
@@ -117,6 +122,18 @@ void ui::UI::handleWidthChange() {
 
 }
 
+void ui::UI::handleAddRectangleToInsertionPoint() {
+    cout << "Input width height: "<<endl;
+    int width, height;
+    cin >> width >> height;
+    if(width < 1 || height < 1){
+        cout << "Width and height must be at least 1!" << endl;
+        return;
+    }
+    composition->insertGlyph(new Rectangle(width, height), insertionPoint);
+    insertionPoint++;
+}
+
 void ui::UI::handleHitTest() {
     cout << "Input x y: "<<endl;
     int x, y;
@@ -124,6 +141,9 @@ void ui::UI::handleHitTest() {
     Glyph* hit = composition->HitTest(Point(x, y));
     if(auto* c = dynamic_cast<Character*>(hit)){
         cout << "Hit character '" << c->getChar() << "' (id " << c->getId() << ")" << endl;
+    }
+    else if(hit) {
+        cout << "Hit " << hit->getType() << " (id " << hit->getId() << ")" << endl;
     }
     else {
         cout << "Nothing at (" << x << "," << y << ")" << endl;

@@ -32,6 +32,7 @@ namespace ui{
             void handleAddStringToInsertionPoint();
             void handleWidthChange();
             void handleHitTest();
+            void handleAddRectangleToInsertionPoint();
         public:
             UI();
             void start();
