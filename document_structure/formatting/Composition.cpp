@@ -21,12 +21,30 @@ namespace formatting {
             layout->Draw(w);
     }
 
-    void Composition::Bounds(Rect &) {
-
+    void Composition::Bounds(Rect & r) {
+        if(layout)
+            layout->Bounds(r);
+        else
+            r = Rect(position.x, position.y, position.x, position.y);
     }
 
-    bool Composition::Intersects(const Point &) {
-        return false;
+    Glyph* Composition::HitTest(const Point & p) {
+        return layout ? layout->HitTest(p) : nullptr;
+    }
+
+    void Composition::setPosition(const Point & p) {
+        Glyph::setPosition(p);
+        if(layout)
+            layout->setPosition(p);
+    }
+
+    Glyph* Composition::Child(int i) const {
+        if(i < 0 || i >= (int)glyphs.size()) return nullptr;
+        return glyphs[i];
+    }
+
+    int Composition::ChildCount() const {
+        return glyphs.size();
     }
 
 
@@ -51,6 +69,10 @@ namespace formatting {
     void Composition::recompose() {
         delete layout;
         layout = compositor ? compositor->compose(glyphs) : nullptr;
+        if(layout){
+            layout->setParent(this);
+            layout->setPosition(position);
+        }
     }
 
     void Composition::environmentChanged(const EnvironmentSource &s) {

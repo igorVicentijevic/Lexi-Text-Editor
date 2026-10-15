@@ -24,6 +24,8 @@ add_executable(Lexi main.cpp
         document_structure/formatting/Compositor.h
         document_structure/Column.cpp
         document_structure/Column.h
+        document_structure/CompositeGlyph.cpp
+        document_structure/CompositeGlyph.h
         ui/UI.cpp
         ui/UI.h
         document_structure/formatting/FullCompositor.cpp

@@ -13,16 +13,16 @@ namespace document_structure {
         private:
             char c;
         public:
+            //character is the smallest unit of the document, other sizes are expressed in characters
+            static constexpr int WIDTH = 1;
+            static constexpr int HEIGHT = 1;
+
             Character(char c);
-            void Draw(Window* ) override;
+            void Draw(Window*) override;
             //returns the opposite corners of the smallest rectangle that contains glyph
             void Bounds(Rect&) override;
 
-            //hit detection
-            bool Intersects(const Point&) override;
-
-
-
+            char getChar() const { return c; }
 
             //print
 

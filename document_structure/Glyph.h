@@ -12,16 +12,21 @@
 #include <ostream>
 #include <string>
 
-using namespace appearance;
-
 
 namespace document_structure {
+    using appearance::Window;
+    using appearance::Rect;
+    using appearance::Point;
+
     class Glyph {
         private:
             int id;
             static int ID;
             Glyph* parent;
 
+        protected:
+            //top left corner, set by the parent during layout
+            Point position;
 
         public:
             Glyph();
@@ -32,8 +37,17 @@ namespace document_structure {
             virtual void Bounds(Rect&)=0;
 
             //hit detection
-            virtual bool Intersects(const Point&)=0;
+            virtual bool Intersects(const Point&);
+            //deepest glyph at the point, nullptr if there is none
+            virtual Glyph* HitTest(const Point&);
 
+            //position
+            virtual void setPosition(const Point& p);
+            const Point& getPosition() const;
+
+            //structure
+            virtual Glyph* Child(int) const { return nullptr; }
+            virtual int ChildCount() const { return 0; }
 
             virtual std::string getType() const = 0;
 

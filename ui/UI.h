@@ -31,6 +31,7 @@ namespace ui{
             void handleInsertCharacterOnInsertionPoint();
             void handleAddStringToInsertionPoint();
             void handleWidthChange();
+            void handleHitTest();
         public:
             UI();
             void start();

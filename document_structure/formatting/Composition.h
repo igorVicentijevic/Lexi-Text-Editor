@@ -26,13 +26,21 @@ namespace formatting {
         public:
             ~Composition() override;
 
-            void Draw(Window* ) override;
+            void Draw(appearance::Window* ) override;
 
             //returns the opposite corners of the smallest rectangle that contains glyph
-            void Bounds(Rect&) override;
+            void Bounds(appearance::Rect&) override;
 
             //hit detection
-            bool Intersects(const Point&) override;
+            document_structure::Glyph* HitTest(const appearance::Point&) override;
+
+            //places the layout at the given point
+            void setPosition(const appearance::Point& p) override;
+
+            //logical structure
+            document_structure::Glyph* Child(int) const override;
+            int ChildCount() const override;
+
             void insertGlyph(document_structure::Glyph*,int);
 
             //compositor

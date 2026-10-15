@@ -18,6 +18,7 @@ using namespace formatting;
 void ui::UI::start() {
     while(true){
         this->composition->Draw(this->window);
+        this->window->Flush();
         this->printConfig();
         this->printOptions();
         int option = this->readOption();
@@ -58,6 +59,9 @@ void ui::UI::callOption(int option) {
         case 5:
             handleWidthChange();
             break;
+        case 6:
+            handleHitTest();
+            break;
         default:
             cout << "Nevalidna opcija! Unesite ponovo!";
     }
@@ -76,6 +80,7 @@ void ui::UI::printOptions() {
     cout<<"3. Add string to insertion point"<<endl;
     cout<<"4. Quit"<<endl;
     cout<<"5. Change window width"<<endl;
+    cout<<"6. Hit test (x y)"<<endl;
     cout<<"######################"<<endl;
 }
 
@@ -110,4 +115,17 @@ void ui::UI::handleWidthChange() {
     this->window->setWidth(newWidth);
     this->composition->environmentChanged(*lineWidthSource);
 
+}
+
+void ui::UI::handleHitTest() {
+    cout << "Input x y: "<<endl;
+    int x, y;
+    cin >> x >> y;
+    Glyph* hit = composition->HitTest(Point(x, y));
+    if(auto* c = dynamic_cast<Character*>(hit)){
+        cout << "Hit character '" << c->getChar() << "' (id " << c->getId() << ")" << endl;
+    }
+    else {
+        cout << "Nothing at (" << x << "," << y << ")" << endl;
+    }
 }

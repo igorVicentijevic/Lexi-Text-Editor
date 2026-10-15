@@ -33,4 +33,22 @@ namespace document_structure {
         this->parent = g;
     }
 
+    bool Glyph::Intersects(const Point& p){
+        Rect r;
+        Bounds(r);
+        return r.contains(p);
+    }
+
+    Glyph* Glyph::HitTest(const Point& p){
+        return Intersects(p) ? this : nullptr;
+    }
+
+    void Glyph::setPosition(const Point& p){
+        this->position = p;
+    }
+
+    const Point& Glyph::getPosition() const {
+        return position;
+    }
+
 }

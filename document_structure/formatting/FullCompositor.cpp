@@ -3,6 +3,7 @@
 //
 
 #include "FullCompositor.h"
+#include "../Row.h"
 
 using namespace document_structure;
 
@@ -25,7 +26,7 @@ namespace formatting {
         for(Glyph* g: glyphs){
 
             if(currInRow == width){
-                col->insertRow(row);
+                col->Insert(row, col->ChildCount());
                 currInRow = 0;
             }
 
@@ -33,12 +34,12 @@ namespace formatting {
                 row = new Row();
             }
 
-            row->insertGlyph(g,currInRow);
+            row->Insert(g,currInRow);
             currInRow ++;
         }
 
         if(row!= nullptr)
-            col->insertRow(row);
+            col->Insert(row, col->ChildCount());
         return col;
     }
 

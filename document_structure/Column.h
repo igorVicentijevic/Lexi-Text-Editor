@@ -5,35 +5,18 @@
 #ifndef LEXI_COLUMN_H
 #define LEXI_COLUMN_H
 
-#include "Glyph.h"
-#include "Row.h"
-
-#include <vector>
+#include "CompositeGlyph.h"
 
 namespace document_structure {
-    class Column : public document_structure::Glyph {
 
-    private:
-        std::vector<document_structure::Row*> children;
+    //lays out children top to bottom, owns them (rows of the layout)
+    class Column : public CompositeGlyph {
+    protected:
+        Point nextPosition(const Point& pos, Glyph* child) override;
     public:
         ~Column() override;
 
-        void Draw(Window *window) override;
-
-        void Bounds(Rect &rect) override;
-
-        bool Intersects(const Point &point) override;
-
-        void Insert(Glyph *glyph);
-        void insertRow(Row* row);
-
-        void Remove(Glyph *glyph);
-
         std::string getType() const override;
-
-        std::vector<Row*>& getChildren(){
-            return children;
-        }
     };
 }
 

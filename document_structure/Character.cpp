@@ -9,16 +9,11 @@ namespace document_structure {
     Character::Character(char c):c(c){}
 
     void Character::Draw(Window* w){
-        w->DrawCharacter(this->c);
+        w->DrawCharacter(this->c, position.x, position.y);
     }
 
     void Character::Bounds(Rect& r){
-        //TODO
-    }
-
-    bool Character::Intersects(const Point&){
-        //TODO
-        return true;
+        r = Rect(position.x, position.y, position.x + WIDTH, position.y + HEIGHT);
     }
 
 

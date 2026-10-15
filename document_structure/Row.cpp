@@ -4,50 +4,16 @@
 
 #include "Row.h"
 
-#include <algorithm>
-
 namespace document_structure {
 
-
-    //appearance
-    void Row::Draw(Window* w){
-        for(Glyph* child: children){
-            child->Draw(w);
-        }
-        w->DrawCharacter('\n');
+    Point Row::nextPosition(const Point& pos, Glyph* child) {
+        Rect r;
+        child->Bounds(r);
+        return {pos.x + r.width(), pos.y};
     }
-    //returns the opposite corners of the smallest rectangle that contains glyph
-    void Row::Bounds(Rect& r){
-        //TODO
-    }
-
-    //hit detection
-    bool Row::Intersects(const Point& p){
-        //TODO
-        return false;
-    }
-
-    //structure
-    void Row::Insert(Glyph* g){
-        children.push_back(g);
-        g->setParent(this);
-    }
-
-    void Row::Remove(Glyph* g){
-        auto it = std::find(children.begin(), children.end(),g);
-        if(it == children.end()) return;
-        children.erase(it);
-        g->setParent(nullptr);
-    }
-
 
     //print
     std::string Row::getType() const {
         return "Row";
-    }
-
-    void Row::insertGlyph(Glyph * gToInsert, int pos) {
-        if(pos < 0) return; //error
-        this->children.insert(children.begin()+pos,gToInsert);
     }
 } // document_structure
