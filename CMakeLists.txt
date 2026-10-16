@@ -44,6 +44,8 @@ add_executable(Lexi main.cpp
         view/Decorator.h
         view/BorderDecorator.cpp
         view/BorderDecorator.h
+        view/FrameDecorator.cpp
+        view/FrameDecorator.h
         editor/InsertionPoint.cpp
         editor/InsertionPoint.h
         commands/CommandFactory.cpp

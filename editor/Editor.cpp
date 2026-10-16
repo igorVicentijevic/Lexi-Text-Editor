@@ -9,7 +9,7 @@
 #include "../document_structure/formatting/environment_source/LineWidthSource.h"
 #include "../commands/CommandFactory.h"
 #include "../view/DocumentView.h"
-#include "../view/BorderDecorator.h"
+#include "../view/FrameDecorator.h"
 
 namespace editor {
 
@@ -19,7 +19,7 @@ namespace editor {
         composition = new formatting::Composition();
         composition->setCompositor(compositor);
 
-        view = new view::BorderDecorator(new view::DocumentView(*composition));
+        view = new view::FrameDecorator(new view::DocumentView(*composition));
         view->setPosition(appearance::Point(0, 0));
 
         insertionPoint = new InsertionPoint(*composition);
