@@ -15,6 +15,7 @@ namespace formatting {
     class LineWidthSource;
 }
 namespace commands { class CommandFactory; }
+namespace view { class VisualComponent; }
 
 namespace editor {
 
@@ -28,6 +29,8 @@ namespace editor {
             formatting::LineWidthSource* lineWidthSource;
             formatting::Compositor* compositor;
             formatting::Composition* composition;
+            //what is drawn on the window - the document with its decorations
+            view::VisualComponent* view;
             InsertionPoint* insertionPoint;
             commands::CommandFactory* factory;
 

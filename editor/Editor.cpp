@@ -8,6 +8,8 @@
 #include "../document_structure/formatting/FullCompositor.h"
 #include "../document_structure/formatting/environment_source/LineWidthSource.h"
 #include "../commands/CommandFactory.h"
+#include "../view/DocumentView.h"
+#include "../view/BorderDecorator.h"
 
 namespace editor {
 
@@ -16,6 +18,10 @@ namespace editor {
         compositor = new formatting::FullCompositor(*lineWidthSource);
         composition = new formatting::Composition();
         composition->setCompositor(compositor);
+
+        view = new view::BorderDecorator(new view::DocumentView(*composition));
+        view->setPosition(appearance::Point(0, 0));
+
         insertionPoint = new InsertionPoint(*composition);
 
         //everything exists, the factory can get its receivers
@@ -26,6 +32,7 @@ namespace editor {
         //everyone is deleted before the objects it uses
         delete factory;
         delete insertionPoint;
+        delete view;
         delete composition;
         delete compositor;
         delete lineWidthSource;
@@ -37,12 +44,12 @@ namespace editor {
     }
 
     void Editor::redraw() {
-        composition->Draw(window);
+        view->Draw(window);
         window->Flush();
     }
 
     document_structure::Glyph* Editor::hitTest(const appearance::Point& p) {
-        return composition->HitTest(p);
+        return view->HitTest(p);
     }
 
     int Editor::getInsertionPoint() const {

@@ -37,6 +37,13 @@ add_executable(Lexi main.cpp
         ui/MenuItems.h
         editor/Editor.cpp
         editor/Editor.h
+        view/VisualComponent.h
+        view/DocumentView.cpp
+        view/DocumentView.h
+        view/Decorator.cpp
+        view/Decorator.h
+        view/BorderDecorator.cpp
+        view/BorderDecorator.h
         editor/InsertionPoint.cpp
         editor/InsertionPoint.h
         commands/CommandFactory.cpp
