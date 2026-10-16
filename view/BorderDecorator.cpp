@@ -23,9 +23,9 @@ namespace view {
     void BorderDecorator::DrawBorder(Window* w) {
         Rect r;
         Bounds(r);
-        for(int y = r.y0; y < r.y1; y++){
-            w->DrawCharacter('|', r.x0, y);
-            w->DrawCharacter('|', r.x1 - THICKNESS, y);
+        for(int i = 0; i < THICKNESS; i++){
+            w->DrawLine(r.x0 + i, r.y0, r.x0 + i, r.y1);
+            w->DrawLine(r.x1 - 1 - i, r.y0, r.x1 - 1 - i, r.y1);
         }
     }
 

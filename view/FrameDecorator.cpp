@@ -11,9 +11,9 @@ using namespace appearance;
 
 namespace view {
 
-    //two lines on every side, each as thick as one character
+    //number of lines on each side, every line is as thick as one character
     static const int SIDE_WIDTH = 2 * document_structure::Character::WIDTH;
-    static const int TOP_HEIGHT = 2 * document_structure::Character::HEIGHT;
+    static const int TOP_HEIGHT = 1 * document_structure::Character::HEIGHT;
     static const int MIN_CONTENT_HEIGHT = document_structure::Character::HEIGHT;
 
     void FrameDecorator::Draw(Window* w) {
@@ -26,19 +26,15 @@ namespace view {
         Bounds(r);
 
         //top and bottom over the whole width
-        for(int x = r.x0; x < r.x1; x++){
-            for(int i = 0; i < TOP_HEIGHT; i++){
-                w->DrawCharacter('_', x, r.y0 + i);
-                w->DrawCharacter('_', x, r.y1 - TOP_HEIGHT + i);
-            }
+        for(int i = 0; i < TOP_HEIGHT; i++){
+            w->DrawLine(r.x0, r.y0 + i, r.x1, r.y0 + i);
+            w->DrawLine(r.x0, r.y1 - 1 - i, r.x1, r.y1 - 1 - i);
         }
 
         //left and right between them
-        for(int y = r.y0 + TOP_HEIGHT; y < r.y1 - TOP_HEIGHT; y++){
-            for(int i = 0; i < SIDE_WIDTH; i++){
-                w->DrawCharacter('|', r.x0 + i, y);
-                w->DrawCharacter('|', r.x1 - SIDE_WIDTH + i, y);
-            }
+        for(int i = 0; i < SIDE_WIDTH; i++){
+            w->DrawLine(r.x0 + i, r.y0 + TOP_HEIGHT, r.x0 + i, r.y1 - TOP_HEIGHT);
+            w->DrawLine(r.x1 - 1 - i, r.y0 + TOP_HEIGHT, r.x1 - 1 - i, r.y1 - TOP_HEIGHT);
         }
     }
 

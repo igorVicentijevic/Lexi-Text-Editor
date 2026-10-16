@@ -20,6 +20,8 @@ namespace appearance {
         public:
             void DeviceText(char c, int x, int y) override;
             void DeviceRect(int x0, int y0, int x1, int y1) override;
+            //'_' for horizontal and '|' for vertical lines, other lines can't be drawn in console
+            void DeviceLine(int x0, int y0, int x1, int y1) override;
             void DeviceFlush() override;
     };
 

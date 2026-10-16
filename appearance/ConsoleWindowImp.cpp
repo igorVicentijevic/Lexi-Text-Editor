@@ -27,6 +27,19 @@ namespace appearance {
         }
     }
 
+    void ConsoleWindowImp::DeviceLine(int x0, int y0, int x1, int y1) {
+        if(y0 == y1){
+            for(int x = x0; x < x1; x++){
+                DeviceText('_', x, y0);
+            }
+        }
+        else if(x0 == x1){
+            for(int y = y0; y < y1; y++){
+                DeviceText('|', x0, y);
+            }
+        }
+    }
+
     void ConsoleWindowImp::DeviceFlush() {
         for(const std::string& line: buffer){
             std::cout << line << std::endl;

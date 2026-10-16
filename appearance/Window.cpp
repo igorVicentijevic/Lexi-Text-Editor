@@ -19,6 +19,10 @@ void appearance::Window::DrawRect(int x0, int y0, int x1, int y1){
     imp->DeviceRect(x0, y0, x1, y1);
 }
 
+void appearance::Window::DrawLine(int x0, int y0, int x1, int y1){
+    imp->DeviceLine(x0, y0, x1, y1);
+}
+
 void appearance::Window::Flush() {
     imp->DeviceFlush();
 }

@@ -28,6 +28,8 @@ namespace appearance {
             Window& operator=(const Window&) = delete;
 
             void DrawRect(int x0, int y0, int x1, int y1);
+            //horizontal or vertical line from (x0,y0) to (x1,y1), the end is exclusive
+            void DrawLine(int x0, int y0, int x1, int y1);
             //coordinates are in document units (one character = one cell)
             void DrawCharacter(char c, int x, int y);
 

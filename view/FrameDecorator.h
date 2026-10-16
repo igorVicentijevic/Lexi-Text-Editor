@@ -9,8 +9,8 @@
 
 namespace view {
 
-    //draws double lines on every side of the component:
-    //"||" left and right, two rows of '_' above and below (they also cover the corners)
+    //draws lines on every side of the component: double lines left and right,
+    //a line above and below (top and bottom lines also cover the corners)
     class FrameDecorator: public Decorator {
         private:
             appearance::Point position;
