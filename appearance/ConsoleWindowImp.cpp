@@ -40,11 +40,39 @@ namespace appearance {
         }
     }
 
+    void ConsoleWindowImp::DeviceCaret(int x, int y0, int y1) {
+        if(x < 0 || y0 < 0 || y1 <= y0) return;
+        hasCaret = true;
+        caretX = x;
+        caretY0 = y0;
+        caretY1 = y1;
+
+        //caret cells must exist to be shown, even at the end of a line
+        for(int y = y0; y < y1; y++){
+            if((int)buffer.size() <= y) buffer.resize(y + 1);
+            if((int)buffer[y].size() <= x) buffer[y].resize(x + 1, ' ');
+        }
+    }
+
+    bool ConsoleWindowImp::isCaret(int x, int y) const {
+        return hasCaret && x == caretX && y >= caretY0 && y < caretY1;
+    }
+
     void ConsoleWindowImp::DeviceFlush() {
-        for(const std::string& line: buffer){
-            std::cout << line << std::endl;
+        //ANSI escape codes for inverse colors and back to normal
+        const char* INVERSE = "\033[7m";
+        const char* NORMAL = "\033[0m";
+
+        for(int y = 0; y < (int)buffer.size(); y++){
+            const std::string& line = buffer[y];
+            for(int x = 0; x < (int)line.size(); x++){
+                if(isCaret(x, y)) std::cout << INVERSE << line[x] << NORMAL;
+                else std::cout << line[x];
+            }
+            std::cout << std::endl;
         }
         buffer.clear();
+        hasCaret = false;
     }
 
 } // appearance

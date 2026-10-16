@@ -10,6 +10,7 @@
 #include "../commands/CommandFactory.h"
 #include "../view/DocumentView.h"
 #include "../view/FrameDecorator.h"
+#include "../view/CaretDecorator.h"
 
 namespace editor {
 
@@ -19,10 +20,11 @@ namespace editor {
         composition = new formatting::Composition();
         composition->setCompositor(compositor);
 
-        view = new view::FrameDecorator(new view::DocumentView(*composition));
-        view->setPosition(appearance::Point(0, 0));
-
         insertionPoint = new InsertionPoint(*composition);
+
+        view = new view::FrameDecorator(
+                   new view::CaretDecorator(new view::DocumentView(*composition), *composition, *insertionPoint));
+        view->setPosition(appearance::Point(0, 0));
 
         //everything exists, the factory can get its receivers
         factory = new commands::CommandFactory(*composition, *window, *lineWidthSource, *insertionPoint);
@@ -31,8 +33,8 @@ namespace editor {
     Editor::~Editor() {
         //everyone is deleted before the objects it uses
         delete factory;
-        delete insertionPoint;
         delete view;
+        delete insertionPoint;
         delete composition;
         delete compositor;
         delete lineWidthSource;

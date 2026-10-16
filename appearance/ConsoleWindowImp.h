@@ -17,11 +17,18 @@ namespace appearance {
         private:
             std::vector<std::string> buffer;
 
+            //console can't draw between cells, so the caret is shown by inverting cell x
+            bool hasCaret = false;
+            int caretX = 0, caretY0 = 0, caretY1 = 0;
+
+            bool isCaret(int x, int y) const;
+
         public:
             void DeviceText(char c, int x, int y) override;
             void DeviceRect(int x0, int y0, int x1, int y1) override;
             //'_' for horizontal and '|' for vertical lines, other lines can't be drawn in console
             void DeviceLine(int x0, int y0, int x1, int y1) override;
+            void DeviceCaret(int x, int y0, int y1) override;
             void DeviceFlush() override;
     };
 

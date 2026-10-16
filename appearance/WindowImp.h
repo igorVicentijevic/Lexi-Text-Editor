@@ -18,6 +18,8 @@ namespace appearance {
             virtual void DeviceRect(int x0, int y0, int x1, int y1) = 0;
             //horizontal or vertical line from (x0,y0) to (x1,y1), the end is exclusive
             virtual void DeviceLine(int x0, int y0, int x1, int y1) = 0;
+            //text cursor: vertical line on the left edge of cell x, from y0 to y1 (exclusive)
+            virtual void DeviceCaret(int x, int y0, int y1) = 0;
 
             //shows everything drawn since the last flush and starts a new frame
             virtual void DeviceFlush() = 0;
