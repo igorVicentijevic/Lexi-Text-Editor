@@ -12,7 +12,9 @@
 
 namespace appearance {
 
-    //drawing goes into a character buffer, DeviceFlush prints it to stdout
+    //Drawing goes into a character buffer, DeviceFlush prints it to stdout.
+    //Everything is shown on the terminal's alternate screen (like vim or less),
+    //each flush redraws it from the top left corner.
     class ConsoleWindowImp: public WindowImp {
         private:
             std::vector<std::string> buffer;
@@ -24,6 +26,14 @@ namespace appearance {
             bool isCaret(int x, int y) const;
 
         public:
+            //switches to the alternate screen
+            ConsoleWindowImp();
+            //back to the normal screen, as it was before the program started
+            ~ConsoleWindowImp() override;
+
+            ConsoleWindowImp(const ConsoleWindowImp&) = delete;
+            ConsoleWindowImp& operator=(const ConsoleWindowImp&) = delete;
+
             void DeviceText(char c, int x, int y) override;
             void DeviceRect(int x0, int y0, int x1, int y1) override;
             //'_' for horizontal and '|' for vertical lines, other lines can't be drawn in console

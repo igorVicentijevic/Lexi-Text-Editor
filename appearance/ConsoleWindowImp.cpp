@@ -8,6 +8,24 @@
 
 namespace appearance {
 
+    namespace {
+        //ANSI escape codes
+        const char* ALTERNATE_SCREEN_ON = "\033[?1049h";
+        const char* ALTERNATE_SCREEN_OFF = "\033[?1049l";
+        const char* CLEAR_SCREEN = "\033[2J";
+        const char* CURSOR_HOME = "\033[H";
+        const char* INVERSE = "\033[7m";
+        const char* NORMAL = "\033[0m";
+    }
+
+    ConsoleWindowImp::ConsoleWindowImp() {
+        std::cout << ALTERNATE_SCREEN_ON << std::flush;
+    }
+
+    ConsoleWindowImp::~ConsoleWindowImp() {
+        std::cout << ALTERNATE_SCREEN_OFF << std::flush;
+    }
+
     void ConsoleWindowImp::DeviceText(char c, int x, int y) {
         if(x < 0 || y < 0) return;
         if((int)buffer.size() <= y) buffer.resize(y + 1);
@@ -59,9 +77,8 @@ namespace appearance {
     }
 
     void ConsoleWindowImp::DeviceFlush() {
-        //ANSI escape codes for inverse colors and back to normal
-        const char* INVERSE = "\033[7m";
-        const char* NORMAL = "\033[0m";
+        //the new picture replaces the old one instead of being printed below it
+        std::cout << CLEAR_SCREEN << CURSOR_HOME;
 
         for(int y = 0; y < (int)buffer.size(); y++){
             const std::string& line = buffer[y];
