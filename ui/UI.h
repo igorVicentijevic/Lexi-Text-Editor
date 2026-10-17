@@ -6,25 +6,27 @@
 #define LEXI_UI_H
 
 #include "../editor/Editor.h"
-#include "MenuItem.h"
-
-#include <vector>
+#include "RawTerminal.h"
+#include "Menu.h"
+#include "Keymap.h"
 
 namespace ui{
-    //Console loop: shows the document and the menu and selects the chosen item.
+    //Console loop: shows the document and passes every pressed key to its binding.
+    //The rest of the options are in the menu (Ctrl+O).
     class UI {
         private:
+            //first member - raw mode is turned off last, after everything that uses it
+            RawTerminal terminal;
+
             editor::Editor* editor;
-            //owned
-            std::vector<MenuItem*> menu;
+            //menu items and key bindings use the editor, so they are deleted before it
+            Menu* menu;
+            Keymap* keymap;
 
             bool quit = false;
 
         private:
             void printConfig();
-            void printOptions();
-            int readOption();
-            void callOption(int);
 
         public:
             UI();

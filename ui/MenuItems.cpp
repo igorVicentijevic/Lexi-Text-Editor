@@ -14,30 +14,25 @@ using namespace document_structure;
 
 namespace ui {
 
-    void EditorMenuItem::execute(commands::Command* c) {
-        c->Execute();
-        delete c;
-    }
-
     void PutInsertionPointItem::select() {
         cout << "Input insertion point: "<<endl;
         int pos;
         cin >> pos;
-        execute(editor.commands().moveInsertionPoint(pos));
+        editor.execute(editor.commands().moveInsertionPoint(pos));
     }
 
     void InsertCharacterItem::select() {
         cout << "Unesite karakter: ";
         char c;
         cin>> c;
-        execute(editor.commands().insertGlyph(new Character(c)));
+        editor.execute(editor.commands().insertGlyph(new Character(c)));
     }
 
     void InsertStringItem::select() {
         cout << "Input string: "<<endl;
         string s;
         cin >> s;
-        execute(editor.commands().insertString(s));
+        editor.execute(editor.commands().insertString(s));
     }
 
     void ChangeWidthItem::select() {
@@ -48,7 +43,7 @@ namespace ui {
             cout << "Width must be at least 1!" << endl;
             return;
         }
-        execute(editor.commands().changeWidth(newWidth));
+        editor.execute(editor.commands().changeWidth(newWidth));
     }
 
     void InsertRectangleItem::select() {
@@ -59,11 +54,11 @@ namespace ui {
             cout << "Width and height must be at least 1!" << endl;
             return;
         }
-        execute(editor.commands().insertGlyph(new Rectangle(width, height)));
+        editor.execute(editor.commands().insertGlyph(new Rectangle(width, height)));
     }
 
     void RemoveGlyphItem::select() {
-        execute(editor.commands().removeGlyph());
+        editor.execute(editor.commands().removeGlyph());
     }
 
     void HitTestItem::select() {

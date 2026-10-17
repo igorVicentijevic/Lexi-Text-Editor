@@ -24,10 +24,26 @@ namespace ui {
     class RawTerminal {
         private:
             termios original;
+            termios raw;
             //false when stdin is not a terminal (e.g. input from a file)
             bool active = false;
 
+            void enableRaw();
+            void restoreOriginal();
+
         public:
+            //Normal mode while it exists (e.g. for reading whole lines with cin), raw mode again after it.
+            class Pause {
+                private:
+                    RawTerminal& terminal;
+                public:
+                    explicit Pause(RawTerminal& terminal): terminal(terminal) { terminal.restoreOriginal(); }
+                    ~Pause() { terminal.enableRaw(); }
+
+                    Pause(const Pause&) = delete;
+                    Pause& operator=(const Pause&) = delete;
+            };
+
             RawTerminal();
             ~RawTerminal();
 

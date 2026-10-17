@@ -14,7 +14,10 @@ namespace formatting {
     class Compositor;
     class LineWidthSource;
 }
-namespace commands { class CommandFactory; }
+namespace commands {
+    class Command;
+    class CommandFactory;
+}
 namespace view { class VisualComponent; }
 
 namespace editor {
@@ -43,6 +46,9 @@ namespace editor {
             Editor& operator=(const Editor&) = delete;
 
             commands::CommandFactory& commands();
+            //every command goes through here, so command history (undo) can be added in one place;
+            //takes ownership of the command
+            void execute(commands::Command* c);
 
             //draws the document and shows it in the window
             void redraw();

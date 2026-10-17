@@ -7,7 +7,6 @@
 
 #include "MenuItem.h"
 #include "../editor/Editor.h"
-#include "../commands/Command.h"
 
 namespace ui {
 
@@ -15,9 +14,6 @@ namespace ui {
     class EditorMenuItem: public MenuItem {
         protected:
             editor::Editor& editor;
-
-            //executes and deletes the command
-            void execute(commands::Command* c);
 
         public:
             EditorMenuItem(const std::string& label, editor::Editor& editor): MenuItem(label), editor(editor){}

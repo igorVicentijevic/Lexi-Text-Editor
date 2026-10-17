@@ -4,6 +4,7 @@
 
 #include "RawTerminal.h"
 
+#include <iostream>
 #include <unistd.h>
 
 namespace ui {
@@ -18,7 +19,7 @@ namespace ui {
     RawTerminal::RawTerminal() {
         if(tcgetattr(STDIN_FILENO, &original) != 0) return;
 
-        termios raw = original;
+        raw = original;
         //no waiting for Enter, no echo, Ctrl+O is not swallowed by the terminal
         raw.c_lflag &= ~(ICANON | ECHO | IEXTEN);
         //Ctrl+Q/Ctrl+S are not used for flow control
@@ -27,24 +28,34 @@ namespace ui {
         raw.c_cc[VMIN] = 1;
         raw.c_cc[VTIME] = 0;
 
-        active = tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw) == 0;
+        active = true;
+        enableRaw();
     }
 
     RawTerminal::~RawTerminal() {
+        restoreOriginal();
+    }
+
+    void RawTerminal::enableRaw() {
+        if(active) tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw);
+    }
+
+    void RawTerminal::restoreOriginal() {
         if(active) tcsetattr(STDIN_FILENO, TCSAFLUSH, &original);
     }
 
     Key RawTerminal::readKey() {
+        //through cin and not read(), so keys and lines read by cin use the same buffer
         char c;
-        if(read(STDIN_FILENO, &c, 1) != 1) return Key(Key::Quit);
+        if(!std::cin.get(c)) return Key(Key::Quit);
 
         if(c == ESC){
             //arrows arrive as ESC [ A/B/C/D
-            char seq[2];
-            if(read(STDIN_FILENO, &seq[0], 1) != 1 || seq[0] != '[') return Key(Key::Other);
-            if(read(STDIN_FILENO, &seq[1], 1) != 1) return Key(Key::Other);
+            char bracket, code;
+            if(!std::cin.get(bracket) || bracket != '[') return Key(Key::Other);
+            if(!std::cin.get(code)) return Key(Key::Other);
 
-            switch(seq[1]){
+            switch(code){
                 case 'A': return Key(Key::Up);
                 case 'B': return Key(Key::Down);
                 case 'C': return Key(Key::Right);

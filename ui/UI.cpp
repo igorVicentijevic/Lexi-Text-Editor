@@ -4,6 +4,7 @@
 
 #include "UI.h"
 #include "MenuItems.h"
+#include "KeyBindings.h"
 #include "../appearance/ConsoleWindowImp.h"
 
 #include <iostream>
@@ -16,61 +17,43 @@ ui::UI::UI(){
     this->editor = new editor::Editor(new Window(30,30, new ConsoleWindowImp()));
 
     //new option = new line here
-    menu = {
-        new PutInsertionPointItem(*editor),
-        new InsertCharacterItem(*editor),
-        new InsertStringItem(*editor),
-        new QuitItem(quit),
-        new ChangeWidthItem(*editor),
-        new HitTestItem(*editor),
-        new InsertRectangleItem(*editor),
-        new RemoveGlyphItem(*editor),
-    };
+    menu = new Menu();
+    menu->add(new PutInsertionPointItem(*editor));
+    menu->add(new InsertCharacterItem(*editor));
+    menu->add(new InsertStringItem(*editor));
+    menu->add(new QuitItem(quit));
+    menu->add(new ChangeWidthItem(*editor));
+    menu->add(new HitTestItem(*editor));
+    menu->add(new InsertRectangleItem(*editor));
+    menu->add(new RemoveGlyphItem(*editor));
+
+    //new key = new line here
+    keymap = new Keymap();
+    keymap->bind(Key::Char,      new TypeCharacterBinding(*editor));
+    keymap->bind(Key::Backspace, new RemoveGlyphBinding(*editor));
+    keymap->bind(Key::Left,      new MoveInsertionPointBinding(*editor, -1));
+    keymap->bind(Key::Right,     new MoveInsertionPointBinding(*editor, +1));
+    keymap->bind(Key::Menu,      new OpenMenuBinding(*menu, terminal));
+    keymap->bind(Key::Quit,      new QuitBinding(quit));
 }
 
 ui::UI::~UI() {
-    //menu items use the editor
-    for(MenuItem* item: menu){
-        delete item;
-    }
+    //bindings use the menu, everything uses the editor
+    delete keymap;
+    delete menu;
     delete editor;
 }
 
 void ui::UI::start() {
-    while(true){
+    while(!quit){
         editor->redraw();
         this->printConfig();
-        this->printOptions();
-        int option = this->readOption();
-        this->callOption(option);
-
-        if(quit) return;
+        keymap->pressed(terminal.readKey());
     }
-}
-
-void ui::UI::callOption(int option) {
-    if(option < 1 || option > (int)menu.size()){
-        cout << "Nevalidna opcija! Unesite ponovo!" << endl;
-        return;
-    }
-    menu[option - 1]->select();
-}
-
-int ui::UI::readOption() {
-    int option;
-    cin>>option;
-    return option;
-}
-
-void ui::UI::printOptions() {
-    cout<<"######################"<<endl;
-    for(int i = 0; i < (int)menu.size(); i++){
-        cout << i + 1 << ". " << menu[i]->getLabel() << endl;
-    }
-    cout<<"######################"<<endl;
 }
 
 void ui::UI::printConfig() {
     cout <<"Insertion point location: "<<editor->getInsertionPoint()<<endl;
     cout <<"Width: "<<editor->getWidth()<<endl;
+    cout <<"Ctrl+O meni, Ctrl+Q izlaz"<<endl;
 }

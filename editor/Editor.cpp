@@ -7,6 +7,7 @@
 #include "../document_structure/formatting/Composition.h"
 #include "../document_structure/formatting/FullCompositor.h"
 #include "../document_structure/formatting/environment_source/LineWidthSource.h"
+#include "../commands/Command.h"
 #include "../commands/CommandFactory.h"
 #include "../view/DocumentView.h"
 #include "../view/FrameDecorator.h"
@@ -43,6 +44,11 @@ namespace editor {
 
     commands::CommandFactory& Editor::commands() {
         return *factory;
+    }
+
+    void Editor::execute(commands::Command* c) {
+        c->Execute();
+        delete c;
     }
 
     void Editor::redraw() {
