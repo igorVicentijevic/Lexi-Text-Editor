@@ -35,6 +35,8 @@ add_executable(Lexi main.cpp
         ui/MenuItem.h
         ui/MenuItems.cpp
         ui/MenuItems.h
+        ui/RawTerminal.cpp
+        ui/RawTerminal.h
         editor/Editor.cpp
         editor/Editor.h
         view/VisualComponent.h
