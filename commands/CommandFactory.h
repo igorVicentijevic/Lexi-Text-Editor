@@ -39,6 +39,8 @@ namespace commands {
             //removes the glyph in front of the insertion point (Backspace)
             Command* removeGlyph();
             Command* moveInsertionPoint(int pos);
+            //to the row above (direction < 0) or below (direction > 0)
+            Command* moveInsertionPointVertically(int direction);
             Command* changeWidth(int width);
     };
 

@@ -33,6 +33,8 @@ ui::UI::UI(){
     keymap->bind(Key::Backspace, new RemoveGlyphBinding(*editor));
     keymap->bind(Key::Left,      new MoveInsertionPointBinding(*editor, -1));
     keymap->bind(Key::Right,     new MoveInsertionPointBinding(*editor, +1));
+    keymap->bind(Key::Up,        new MoveInsertionPointVerticallyBinding(*editor, -1));
+    keymap->bind(Key::Down,      new MoveInsertionPointVerticallyBinding(*editor, +1));
     keymap->bind(Key::Menu,      new OpenMenuBinding(*menu, terminal));
     keymap->bind(Key::Quit,      new QuitBinding(quit));
 }

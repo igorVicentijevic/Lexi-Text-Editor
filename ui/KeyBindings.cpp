@@ -25,6 +25,10 @@ namespace ui {
         editor.execute(editor.commands().moveInsertionPoint(editor.getInsertionPoint() + delta));
     }
 
+    void MoveInsertionPointVerticallyBinding::pressed(const Key&) {
+        editor.execute(editor.commands().moveInsertionPointVertically(direction));
+    }
+
     void OpenMenuBinding::pressed(const Key&) {
         RawTerminal::Pause pause(terminal);
 

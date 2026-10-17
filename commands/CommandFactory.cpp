@@ -10,6 +10,7 @@
 #include "ChangeWidthCommand.h"
 #include "../document_structure/Character.h"
 #include "../editor/InsertionPoint.h"
+#include "../document_structure/formatting/Composition.h"
 
 namespace commands {
 
@@ -35,6 +36,11 @@ namespace commands {
     }
 
     Command* CommandFactory::moveInsertionPoint(int pos) {
+        return new MoveInsertionPointCommand(insertionPoint, pos);
+    }
+
+    Command* CommandFactory::moveInsertionPointVertically(int direction) {
+        int pos = composition.verticalPosition(insertionPoint.get(), direction);
         return new MoveInsertionPointCommand(insertionPoint, pos);
     }
 

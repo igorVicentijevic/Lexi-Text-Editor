@@ -43,6 +43,16 @@ namespace ui {
             void pressed(const Key& key) override;
     };
 
+    //moves the insertion point to the row above (direction -1) or below (direction +1)
+    class MoveInsertionPointVerticallyBinding: public EditorKeyBinding {
+        private:
+            int direction;
+        public:
+            MoveInsertionPointVerticallyBinding(editor::Editor& editor, int direction):
+                EditorKeyBinding(editor), direction(direction){}
+            void pressed(const Key& key) override;
+    };
+
     //shows the menu in normal terminal mode, raw mode again after it
     class OpenMenuBinding: public KeyBinding {
         private:
