@@ -46,15 +46,6 @@ namespace formatting {
             //nullptr if there is no glyph at the position
             document_structure::Glyph* removeGlyph(int);
 
-            //positions are between glyphs: 0 is in front of the first, ChildCount() after the last
-
-            //where the position is on the screen: bounds of the glyph after it,
-            //one character cell after the last glyph, or at the beginning of an empty document
-            void positionBounds(int pos, appearance::Rect& r);
-            //position in the row above (direction < 0) or below (direction > 0) at the same x;
-            //the same position if there is no such row
-            int verticalPosition(int pos, int direction);
-
             //compositor
             void setCompositor(Compositor* compositor);
 

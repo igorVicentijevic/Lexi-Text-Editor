@@ -23,6 +23,7 @@ namespace view { class VisualComponent; }
 namespace editor {
 
     class InsertionPoint;
+    class PositionLocator;
 
     //Creates and connects everything the editor is made of and owns it.
     //Changes are made through commands, the rest is what the UI needs to show the document.
@@ -35,6 +36,7 @@ namespace editor {
             //what is drawn on the window - the document with its decorations
             view::VisualComponent* view;
             InsertionPoint* insertionPoint;
+            PositionLocator* locator;
             commands::CommandFactory* factory;
 
         public:

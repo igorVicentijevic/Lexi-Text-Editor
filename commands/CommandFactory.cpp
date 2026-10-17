@@ -10,13 +10,15 @@
 #include "ChangeWidthCommand.h"
 #include "../document_structure/Character.h"
 #include "../editor/InsertionPoint.h"
-#include "../document_structure/formatting/Composition.h"
+#include "../editor/PositionLocator.h"
 
 namespace commands {
 
     CommandFactory::CommandFactory(formatting::Composition& composition, appearance::Window& window,
-                                   formatting::LineWidthSource& widthSource, editor::InsertionPoint& insertionPoint):
-        composition(composition), window(window), widthSource(widthSource), insertionPoint(insertionPoint){}
+                                   formatting::LineWidthSource& widthSource, editor::InsertionPoint& insertionPoint,
+                                   const editor::PositionLocator& locator):
+        composition(composition), window(window), widthSource(widthSource), insertionPoint(insertionPoint),
+        locator(locator){}
 
     Command* CommandFactory::insertGlyph(document_structure::Glyph* g) {
         return new InsertGlyphCommand(composition, insertionPoint, g, insertionPoint.get());
@@ -40,7 +42,7 @@ namespace commands {
     }
 
     Command* CommandFactory::moveInsertionPointVertically(int direction) {
-        int pos = composition.verticalPosition(insertionPoint.get(), direction);
+        int pos = locator.vertical(insertionPoint.get(), direction);
         return new MoveInsertionPointCommand(insertionPoint, pos);
     }
 

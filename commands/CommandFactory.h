@@ -15,7 +15,10 @@ namespace formatting {
     class Composition;
     class LineWidthSource;
 }
-namespace editor { class InsertionPoint; }
+namespace editor {
+    class InsertionPoint;
+    class PositionLocator;
+}
 
 namespace commands {
 
@@ -27,10 +30,12 @@ namespace commands {
             appearance::Window& window;
             formatting::LineWidthSource& widthSource;
             editor::InsertionPoint& insertionPoint;
+            const editor::PositionLocator& locator;
 
         public:
             CommandFactory(formatting::Composition& composition, appearance::Window& window,
-                           formatting::LineWidthSource& widthSource, editor::InsertionPoint& insertionPoint);
+                           formatting::LineWidthSource& widthSource, editor::InsertionPoint& insertionPoint,
+                           const editor::PositionLocator& locator);
 
             //inserts at the current insertion point, takes ownership of the glyph
             Command* insertGlyph(document_structure::Glyph* g);

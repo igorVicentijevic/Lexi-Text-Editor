@@ -4,6 +4,7 @@
 
 #include "Editor.h"
 #include "InsertionPoint.h"
+#include "PositionLocator.h"
 #include "../document_structure/formatting/Composition.h"
 #include "../document_structure/formatting/FullCompositor.h"
 #include "../document_structure/formatting/environment_source/LineWidthSource.h"
@@ -22,19 +23,21 @@ namespace editor {
         composition->setCompositor(compositor);
 
         insertionPoint = new InsertionPoint(*composition);
+        locator = new PositionLocator(*composition);
 
         view = new view::FrameDecorator(
-                   new view::CaretDecorator(new view::DocumentView(*composition), *composition, *insertionPoint));
+                   new view::CaretDecorator(new view::DocumentView(*composition), *locator, *insertionPoint));
         view->setPosition(appearance::Point(0, 0));
 
         //everything exists, the factory can get its receivers
-        factory = new commands::CommandFactory(*composition, *window, *lineWidthSource, *insertionPoint);
+        factory = new commands::CommandFactory(*composition, *window, *lineWidthSource, *insertionPoint, *locator);
     }
 
     Editor::~Editor() {
         //everyone is deleted before the objects it uses
         delete factory;
         delete view;
+        delete locator;
         delete insertionPoint;
         delete composition;
         delete compositor;

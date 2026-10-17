@@ -59,6 +59,8 @@ add_executable(Lexi main.cpp
         view/CaretDecorator.h
         editor/InsertionPoint.cpp
         editor/InsertionPoint.h
+        editor/PositionLocator.cpp
+        editor/PositionLocator.h
         commands/CommandFactory.cpp
         commands/CommandFactory.h
         commands/Command.h

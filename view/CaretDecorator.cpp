@@ -3,8 +3,8 @@
 //
 
 #include "CaretDecorator.h"
-#include "../document_structure/formatting/Composition.h"
 #include "../editor/InsertionPoint.h"
+#include "../editor/PositionLocator.h"
 
 #include <algorithm>
 
@@ -32,7 +32,7 @@ namespace view {
     }
 
     void CaretDecorator::caretBounds(Rect& r) {
-        composition.positionBounds(insertionPoint.get(), r);
+        locator.Bounds(insertionPoint.get(), r);
     }
 
 } // view
