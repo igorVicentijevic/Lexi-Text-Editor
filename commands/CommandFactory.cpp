@@ -5,6 +5,7 @@
 #include "CommandFactory.h"
 #include "InsertGlyphCommand.h"
 #include "MacroCommand.h"
+#include "RemoveGlyphCommand.h"
 #include "MoveInsertionPointCommand.h"
 #include "ChangeWidthCommand.h"
 #include "../document_structure/Character.h"
@@ -27,6 +28,10 @@ namespace commands {
             m->Add(new InsertGlyphCommand(composition, insertionPoint, new document_structure::Character(c), pos++));
         }
         return m;
+    }
+
+    Command* CommandFactory::removeGlyph() {
+        return new RemoveGlyphCommand(composition, insertionPoint, insertionPoint.get() - 1);
     }
 
     Command* CommandFactory::moveInsertionPoint(int pos) {

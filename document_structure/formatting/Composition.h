@@ -42,6 +42,9 @@ namespace formatting {
             int ChildCount() const override;
 
             void insertGlyph(document_structure::Glyph*,int);
+            //takes the glyph out of the document and gives its ownership to the caller,
+            //nullptr if there is no glyph at the position
+            document_structure::Glyph* removeGlyph(int);
 
             //compositor
             void setCompositor(Compositor* compositor);

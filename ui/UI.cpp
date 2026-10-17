@@ -24,6 +24,7 @@ ui::UI::UI(){
         new ChangeWidthItem(*editor),
         new HitTestItem(*editor),
         new InsertRectangleItem(*editor),
+        new RemoveGlyphItem(*editor),
     };
 }
 

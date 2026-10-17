@@ -61,6 +61,16 @@ namespace formatting {
         recompose();
     }
 
+    Glyph* Composition::removeGlyph(int pos) {
+        if(pos < 0 || pos >= (int)glyphs.size()) return nullptr;
+
+        Glyph* g = glyphs[pos];
+        glyphs.erase(glyphs.begin() + pos);
+        g->setParent(nullptr);
+        recompose();
+        return g;
+    }
+
     void Composition::setCompositor(Compositor *compositor) {
         this->compositor = compositor;
         recompose();

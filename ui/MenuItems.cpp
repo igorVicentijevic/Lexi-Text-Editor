@@ -62,6 +62,10 @@ namespace ui {
         execute(editor.commands().insertGlyph(new Rectangle(width, height)));
     }
 
+    void RemoveGlyphItem::select() {
+        execute(editor.commands().removeGlyph());
+    }
+
     void HitTestItem::select() {
         cout << "Input x y: "<<endl;
         int x, y;

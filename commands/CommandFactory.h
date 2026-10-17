@@ -36,6 +36,8 @@ namespace commands {
             Command* insertGlyph(document_structure::Glyph* g);
             //inserts characters of the string at the current insertion point
             Command* insertString(const std::string& s);
+            //removes the glyph in front of the insertion point (Backspace)
+            Command* removeGlyph();
             Command* moveInsertionPoint(int pos);
             Command* changeWidth(int width);
     };

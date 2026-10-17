@@ -59,6 +59,12 @@ namespace ui {
             void select() override;
     };
 
+    class RemoveGlyphItem: public EditorMenuItem {
+        public:
+            explicit RemoveGlyphItem(editor::Editor& editor): EditorMenuItem("Remove glyph before insertion point", editor){}
+            void select() override;
+    };
+
     class QuitItem: public MenuItem {
         private:
             bool& quit;

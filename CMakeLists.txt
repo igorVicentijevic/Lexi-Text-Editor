@@ -59,6 +59,8 @@ add_executable(Lexi main.cpp
         commands/InsertGlyphCommand.h
         commands/MacroCommand.cpp
         commands/MacroCommand.h
+        commands/RemoveGlyphCommand.cpp
+        commands/RemoveGlyphCommand.h
         commands/MoveInsertionPointCommand.h
         commands/ChangeWidthCommand.h
         document_structure/formatting/FullCompositor.cpp
